@@ -1,0 +1,11 @@
+Lab: 38-5 (6.01 Lab, 24 horas)
+Code para el lab: 19263*
+
+
+username: whoami
+computer name: hostname
+password included in box
+password: type password to change
+
+
+bajar BotClient
