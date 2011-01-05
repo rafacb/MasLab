@@ -5,13 +5,22 @@ public class MoveForward {
 	
 	public static void main(String[] args){
 		
-		speeds[0] = 0.2;
-		speeds[1] = 0.2;
-		
 		Robot robot = new Robot();
 		
 		while (true){
-			robot.move(speeds);
+			System.out.println(robot.input());
+			if (robot.input() > 1.8 || robot.input() == 0){
+				speeds[0] = 0.4;
+				speeds[1] = 0.4;
+				
+				robot.move(speeds);
+			}else{
+				speeds[0] = 0.4;
+				speeds[1] = -0.4;
+				
+				robot.move(speeds);
+			}
+			
 		}
 	}
 

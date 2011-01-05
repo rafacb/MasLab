@@ -1,3 +1,4 @@
+import orc.IRRangeFinder;
 import orc.Motor;
 import orc.Orc;
 
@@ -5,14 +6,17 @@ import orc.Orc;
 public class Robot {
 
 	//Variables to store motors.
-	public static Motor[] motors;
+	public static Motor[] motors = new Motor[2];
 	
 	//orc
 	static Orc orco = Orc.makeOrc();
 	
+	//Analog input
+	IRRangeFinder irFront = IRRangeFinder.makeGP2D12(orco, 1);
+	
 	//Motors
-	static Motor motorL = new Motor(orco, 0, false);
-	static Motor motorR = new Motor(orco, 1, false);
+	static Motor motorR = new Motor(orco, 0, false);
+	static Motor motorL = new Motor(orco, 1, true);
 	
 	/**
 	 * Constructor of a robot.
@@ -27,9 +31,11 @@ public class Robot {
 	 * Move with speed "speeds".
 	 */
 	public void move(double[] speeds){
-		while (true){
-			Motor.setMultiplePWM(motors, speeds);
-		}
+		Motor.setMultiplePWM(motors, speeds);
+	}
+	
+	public double input(){
+		return irFront.getRange();
 	}
 	
 }
