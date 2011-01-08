@@ -91,33 +91,6 @@ class Picture {
         BufferedImage edges = addMagnitudes(xe, ye);
         BufferedImage dst = edges;
         ImageIO.write(dst, "bmp", new File("Cedges.bmp"));
-        
-     // Create the ImageTutorial object, and all that that implies
-    	ImageProcessing it = null; //WTF initialize to null to please the compiler
-    	try {
-    	    it = new ImageProcessing(oimg);
-    	}
-    	catch(IOException ioe) {
-    	    System.out.println("Failed to create ImageTutorial object.");
-    	    ioe.printStackTrace();
-    	    System.exit(1);
-    	}
-    	
-    	// Do the work
-    	it.find_red_blob();
-    	
-    	// Show the work
-    	it.renderStatistics();
-    	
-    	// Write the image back to disk
-    	try {
-    	    it.writeImage("capture3result.png");
-    	}
-    	catch(IOException ioe) {
-    	    System.out.println("Failed to write the image to disk");
-    	    ioe.printStackTrace();
-    	    System.exit(1);
-    	}
     }
 }
 

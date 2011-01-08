@@ -38,19 +38,29 @@ public class ImageTutorial {
 	// Constants
 	//
 	// thresholds
-	private static final int RED_HUE_MAX = 0; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
-	private static final int RED_HUE_MIN = 200; // Because hue wraps around at red
-	// 220 = -35 (mod 256)
-	private static final int RED_SAT_MAX = 150;
-	private static final int RED_SAT_MIN = 77;
-	private static final int RED_VAL_MAX = 220; //WTF This is almost the whole range.
-	private static final int RED_VAL_MIN = 64; // Is it even worth the test?
-	// Remove it and find out.
+	//private static final int RED_HUE_MAX = 7; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
+	//private static final int RED_HUE_MIN = 220; // Because hue wraps around at red
+												// 220 = -35 (mod 256)
+	//private static final int RED_SAT_MAX = 150;
+	//private static final int RED_SAT_MIN = 77;
+		
+	//private static final int RED_VAL_MAX = 220; //WTF This is almost the whole range.
+	//private static final int RED_VAL_MIN = 64;  //Is it even worth the test?
+												// Remove it and find out.
+
+	private static final int RED_HUE_MAX = 7; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
+	private static final int RED_HUE_MIN = 250; // Because hue wraps around at red
+												// 220 = -35 (mod 256)
+	private static final int RED_SAT_MAX = 256;
+	private static final int RED_SAT_MIN = 10;
+	
+	private static final int RED_VAL_MAX = 256; 
+	private static final int RED_VAL_MIN = 0;  
 	//
 	// Member variables
 	//
 	// image state (initialized by constructor)
-	private BufferedImage im;
+	public BufferedImage im;
 	private int width, height;
 	// red blob statistics //#*$@ Are there better things to
 	private int area = 0; // which to initialize these? Yes.
@@ -79,6 +89,20 @@ public class ImageTutorial {
 		width = im.getWidth(); //BTW these won't change, so cache them here.
 		height = im.getHeight(); // this will save some clutter later
 	}
+	
+	
+	/**
+	 * Constructor that accepts Buffered Image object as argument.
+	 * @param bi
+	 */
+	public ImageTutorial(BufferedImage bi){
+		im = bi;
+		im = ImageUtil.rgbToHsv(im);
+		width = im.getWidth(); //BTW these won't change, so cache them here.
+		height = im.getHeight(); // this will save some clutter later
+	}
+	
+	
 	/**
 	 * Write the image out as a PNG file
 	 *
@@ -118,7 +142,6 @@ public class ImageTutorial {
 		// that the high-order bits would have been
 		// filled with zeros after the shift. Not so!.
 		// All numeric types in Java are *signed*. The
-
 		// High order bits after a shift are filled
 		// with copies of the original high-order bit.
 		//#*$@ Well-behaved functions will have already
@@ -217,14 +240,17 @@ public class ImageTutorial {
 		//first things we draw are white
 		g.setColor(Color.white);
 		//iterate through the image
+		int count = 0;
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++) {
 				// for each pixel we think is red, color it white
 				if(isRed(im.getRGB(x,y))) {
+					count++;
 					g.drawLine(x,y,x,y); //WTF Yes, this is the best way
 				}
 			}
 		}
+		System.out.println("There are "+count+" number of red pixels!!!");
 		//now for the bounding box
 		g.setColor(Color.blue);
 		g.drawRect(x_min, y_min, x_max-x_min, y_max-y_min);
@@ -255,6 +281,41 @@ public class ImageTutorial {
 		//WTF Why the +1's in aspect ratio? Well, if x_min==x_max, width=1. So,...
 		//WTF Why did I cast the numerator to float? To avoid integer division
 	}
+	
+	
+	
+	public String checkDammValues(){
+		//double val = 0;
+		double vals = height * width;
+		double result = 0;
+		
+		//double hue = 0;
+		double sat = 0;
+		
+		
+		Double max_val = null;
+		Double min_val = null;
+		
+		for(int y = 0; y < height; y++) {
+			for(int x = 0; x < width; x++) {
+				//val = im.getRGB(x,y) & 0xFF;
+				sat = (im.getRGB(x,y) >> 8) & 0xFF;
+				//hue = (im.getRGB(x,y) >> 16) & 0xFF;
+				if (max_val == null || max_val < sat){
+					max_val = sat;
+					}
+				if (min_val == null || min_val > sat){
+					min_val = sat;
+					}
+				result += sat;
+				}
+			}System.out.println(result+" and "+vals);
+			System.out.println("h = "+height+" w = "+width);
+		return "The average value is: "+result/vals+"\nMin = "+min_val+"\nMax = "+max_val;
+	}
+	
+	
+	
 	/**
 	 * Demonstrates the functions of ImageTutorial
 	 */
@@ -275,6 +336,7 @@ public class ImageTutorial {
 		it.renderStatistics();
 		// Print the statistics
 		System.out.println(it.statisticsToString());
+		System.out.println(it.checkDammValues());
 		// Write the image back to disk
 		try {
 			it.writeImage("captureNosresult.png");

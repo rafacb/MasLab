@@ -55,24 +55,16 @@ public class Robot {
 	
 	public void image(){
 		BufferedImage pic = cam.capture();
-		ImageChannel ic = new ImageChannel("Foto");
-		ic.publish(pic);
 		
-		processImage(pic);
+		// Create the ImageTutorial object, and all that that implies
+		ImageTutorial it = null; //WTF initialize to null to placate the compiler
+		it = new ImageTutorial(pic);
+		// Do the work
+		it.find_red_blob();
+		
+		ImageChannel ic = new ImageChannel("Foto");
+		ic.publish(it.im);
 	}
 
-	
-	public void processImage(BufferedImage pic){
-		int[][] rgb = new int[pic.getNumXTiles()][pic.getNumYTiles()];
-		for (int x = pic.getMinTileX(); x < pic.getNumXTiles(); x++){
-			for (int y = pic.getMinTileY(); y < pic.getNumYTiles(); y++){
-				rgb[x][y] = pic.getRGB(x, y);
-				int r = (rgb[x][y] & 0x00FF0000) >> 16;
-				int g = (rgb[x][y] & 0x0000FF00) >> 8;
-				int b = (rgb[x][y] & 0x000000FF);
-
-			}
-		}
-	}
 	
 }

@@ -9,6 +9,8 @@ public class MoveWithCam {
 		
 		Robot robot = new Robot();
 		
+		int count = 0;
+		
 		while (true){
 			/**System.out.println(robot.input());
 			if (robot.input() > 1.8 || robot.input() == 0){
@@ -22,7 +24,10 @@ public class MoveWithCam {
 				
 				robot.move(speeds);
 			}**/
-			robot.image();
+			if (count%20 == 0){
+				robot.image();
+			}
+			count++;
 			
 		}
 	}
