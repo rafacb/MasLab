@@ -17,7 +17,9 @@ public class Robot {
 	static Orc orco = Orc.makeOrc();
 	
 	//Analog input
-	IRRangeFinder irFront = IRRangeFinder.makeGP2D12(orco, 1);
+	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 5);
+	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 7);
+	
 	
 	//Motors
 	static Motor motorR = new Motor(orco, 0, false);
@@ -29,14 +31,15 @@ public class Robot {
 	//Position of redBall
 	int[] pos = new int[2];
 	
+	
 	/**
 	 * Constructor of a robot.
 	 * Initiates the motors and gives them speed.
 	 * @throws IOException 
 	 */
 	public Robot() throws IOException{
-		motors[0] = motorL;
-		motors[1] = motorR;
+		motors[0] = motorR;
+		motors[1] = motorL;
 		cam = Camera.makeCamera();
 	}
 	
@@ -52,8 +55,11 @@ public class Robot {
 	 * @return list of doubles representing the reading from sensors.
 	 * 
 	 */
-	public double input(){
-		return irFront.getRange();
+	public double[] input(){
+		double[] irs = new double[2];
+		irs[0] = irRight.getRange();
+		irs[1] = irLeft.getRange();
+		return irs;
 	}
 	
 	public void image(){
@@ -86,6 +92,32 @@ public class Robot {
 		}
 		
 		move(speeds);
+	}
+	
+	public void randomWalk(){
+		double[] speeds = new double[2];
+		double[] irs = input();
+		if ((irs[0] > 2 && irs[1] > 2) || (irs[0] == 0 && irs[0] == 0)){
+			speeds[0] = 0.4;
+			speeds[1] = 0.4;
+			
+			move(speeds);
+		}else if (irs[0] < 2){
+			speeds[0] = 0.4;
+			speeds[1] = -0.4;
+			
+			move(speeds);
+		}else if (irs[1] < 2){
+			speeds[0] = -0.4;
+			speeds[1] = 0.4;
+			
+			move(speeds);
+		}else{
+			speeds[0] = -0.3;
+			speeds[1] = -0.4;
+			
+			move(speeds);
+		}
 	}
 
 	

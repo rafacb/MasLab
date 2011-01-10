@@ -28,6 +28,8 @@ public class MoveWithCam {
 			//if (count%20 == 0){
 			robot.image();
 			
+			//If the ball is seen in the right side of the picture, then turn right
+			//Do the opposite if it's seen on the left side.
 			if (robot.pos[0] < 150){
 				robot.turn(true);
 			}else if (robot.pos[0] > 170){
