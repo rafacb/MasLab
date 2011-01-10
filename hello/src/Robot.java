@@ -26,6 +26,9 @@ public class Robot {
 	//Camera
 	public Camera cam;
 	
+	//Position of redBall
+	int[] pos = new int[2];
+	
 	/**
 	 * Constructor of a robot.
 	 * Initiates the motors and gives them speed.
@@ -61,13 +64,28 @@ public class Robot {
 		it = new ImageTutorial(pic);
 		// Do the work
 		it.find_red_blob();
+		it.renderStatistics();
 		
 		
 		System.out.println("x = "+ it.pos[0] + " y = "+it.pos[1]);
-		
+		//Store position.
+		pos = it.pos;
 		
 		ImageChannel ic = new ImageChannel("Foto");
 		ic.publish(it.im);
+	}
+	
+	public void turn(boolean right){
+		double[] speeds = new double[2];
+		if (right){
+			speeds[0] = -.2;
+			speeds[1] = .2;
+		}else{
+			speeds[0] = .2;
+			speeds[1] = -.2;
+		}
+		
+		move(speeds);
 	}
 
 	

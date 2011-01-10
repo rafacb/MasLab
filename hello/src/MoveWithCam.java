@@ -25,10 +25,17 @@ public class MoveWithCam {
 				robot.move(speeds);
 			}**/
 			Thread.sleep(20);
-			if (count%20 == 0){
-				robot.image();
+			//if (count%20 == 0){
+			robot.image();
+			
+			if (robot.pos[0] < 150){
+				robot.turn(true);
+			}else if (robot.pos[0] > 170){
+				robot.turn(false);
 			}
-			count++;
+			
+			//}
+			//count++;
 			
 		}
 	}
