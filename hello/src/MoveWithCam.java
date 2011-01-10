@@ -5,7 +5,7 @@ public class MoveWithCam {
 	//Variables to store speeds of the motors
 	static double[] speeds = new double[2];
 	
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException, InterruptedException{
 		
 		Robot robot = new Robot();
 		
@@ -24,6 +24,7 @@ public class MoveWithCam {
 				
 				robot.move(speeds);
 			}**/
+			Thread.sleep(20);
 			if (count%20 == 0){
 				robot.image();
 			}

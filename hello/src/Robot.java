@@ -62,6 +62,10 @@ public class Robot {
 		// Do the work
 		it.find_red_blob();
 		
+		
+		System.out.println("x = "+ it.pos[0] + " y = "+it.pos[1]);
+		
+		
 		ImageChannel ic = new ImageChannel("Foto");
 		ic.publish(it.im);
 	}

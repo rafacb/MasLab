@@ -66,6 +66,8 @@ public class ImageTutorial {
 	private int area = 0; // which to initialize these? Yes.
 	private int x_position = 0, y_position = 0; // Do I care right now? No.
 	private int x_min = 0, x_max = 0, y_min = 0, y_max = 0;
+	
+	public int[] pos = new int[2];
 
 	//
 	// Member functions
@@ -261,6 +263,11 @@ public class ImageTutorial {
 				x_position+10, y_position+10);
 		g.drawLine(x_position-10, y_position+10,
 				x_position+10, y_position-10);
+		
+		
+		pos[0] = x_position;
+		pos[1] = y_position;
+		
 	}
 	/**
 	 * Sumarize the statistics as a string
