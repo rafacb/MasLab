@@ -74,7 +74,7 @@ class Picture {
     }
     public static void main(String[] args) throws Exception {
     	Robot robot = new Robot();
-        BufferedImage oimg = robot.cam.capture();
+        BufferedImage oimg = robot.cam.capture(true);
         //BufferedImage img = maslab.camera.ImageUtil.convertImage(oimg, BufferedImage.TYPE_INT_RGB);
         BufferedImage img = new BufferedImage(oimg.getWidth(), oimg.getHeight(), BufferedImage.TYPE_INT_RGB);
         for (int y = 0; y < oimg.getHeight(); ++y) {
@@ -90,7 +90,7 @@ class Picture {
         ImageIO.write(ye, "bmp", new File("sobely.bmp"));
         BufferedImage edges = addMagnitudes(xe, ye);
         BufferedImage dst = edges;
-        ImageIO.write(dst, "bmp", new File("Cedges.bmp"));
+        ImageIO.write(dst, "bmp", new File("edges.bmp"));
     }
 }
 
