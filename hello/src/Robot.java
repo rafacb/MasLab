@@ -11,19 +11,20 @@ import orc.Orc;
 public class Robot {
 
 	//Variables to store motors.
-	public static Motor[] motors = new Motor[2];
+	public static Motor[] motors = new Motor[3];
 	
 	//orc
 	static Orc orco = Orc.makeOrc();
 	
 	//Analog input
-	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 5);
-	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 7);
+	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 0);
+	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 1);
 	
 	
 	//Motors
 	static Motor motorR = new Motor(orco, 0, false);
 	static Motor motorL = new Motor(orco, 1, true);
+	static Motor drib = new Motor(orco, 2, true);
 	
 	//Camera
 	public Camera cam;
@@ -40,6 +41,7 @@ public class Robot {
 	public Robot() throws IOException{
 		motors[0] = motorR;
 		motors[1] = motorL;
+		motors[2] = drib;
 		cam = Camera.makeCamera();
 	}
 	
@@ -63,14 +65,15 @@ public class Robot {
 	}
 	
 	public void image(){
-		BufferedImage pic = cam.capture();
+		BufferedImage pic = cam.capture(true);
 		
 		// Create the ImageTutorial object, and all that that implies
-		ImageTutorial it = null; //WTF initialize to null to placate the compiler
-		it = new ImageTutorial(pic);
+		Image it = null; //WTF initialize to null to placate the compiler
+		it = new Image(pic);
 		// Do the work
 		it.find_red_blob();
 		it.renderStatistics();
+		it.whereIsBall();
 		
 		
 		System.out.println("x = "+ it.pos[0] + " y = "+it.pos[1]);
@@ -82,13 +85,15 @@ public class Robot {
 	}
 	
 	public void turn(boolean right){
-		double[] speeds = new double[2];
+		double[] speeds = new double[3];
 		if (right){
 			speeds[0] = -.2;
 			speeds[1] = .2;
+			speeds[2] = .8;
 		}else{
 			speeds[0] = .2;
 			speeds[1] = -.2;
+			speeds[2] = .8;
 		}
 		
 		move(speeds);
@@ -100,21 +105,25 @@ public class Robot {
 		if ((irs[0] > 2 && irs[1] > 2) || (irs[0] == 0 && irs[0] == 0)){
 			speeds[0] = 0.4;
 			speeds[1] = 0.4;
+			speeds[2] = .8;
 			
 			move(speeds);
 		}else if (irs[0] < 2){
 			speeds[0] = 0.4;
 			speeds[1] = -0.4;
+			speeds[2] = .8;
 			
 			move(speeds);
 		}else if (irs[1] < 2){
 			speeds[0] = -0.4;
 			speeds[1] = 0.4;
+			speeds[2] = .8;
 			
 			move(speeds);
 		}else{
 			speeds[0] = -0.3;
 			speeds[1] = -0.4;
+			speeds[2] = .8;
 			
 			move(speeds);
 		}
