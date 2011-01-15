@@ -12,7 +12,20 @@ public class Image {
 	// Constants
 	//
 	// thresholds
-	private static final int RED_HUE_MAX = 7; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
+	
+	//ORIGINALES
+	/**private static final int RED_HUE_MAX = 7; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
+	private static final int RED_HUE_MIN = 250; // Because hue wraps around at red
+												// 220 = -35 (mod 256)
+	private static final int RED_SAT_MAX = 256;
+	private static final int RED_SAT_MIN = 10;
+	
+	private static final int RED_VAL_MAX = 256; 
+	private static final int RED_VAL_MIN = 0;  
+	**/
+	
+	//CAPTURENOS
+	/**private static final int RED_HUE_MAX = 7; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
 	private static final int RED_HUE_MIN = 220; // Because hue wraps around at red
 												// 220 = -35 (mod 256)
 	private static final int RED_SAT_MAX = 150;
@@ -21,10 +34,6 @@ public class Image {
 	private static final int RED_VAL_MAX = 220; //WTF This is almost the whole range.
 	private static final int RED_VAL_MIN = 64;  //Is it even worth the test?
 												// Remove it and find out.
-
-	//private static final int RED_HUE_MAX = 7; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
-	//private static final int RED_HUE_MIN = 250; // Because hue wraps around at red
-												// 220 = -35 (mod 256)
 	
 	private static final int YELLOW_HUE_MAX = 70; 
 	private static final int YELLOW_HUE_MIN = 35; 
@@ -34,13 +43,45 @@ public class Image {
 	
 	private static final int GREEN_HUE_MAX = 130; 
 	private static final int GREEN_HUE_MIN = 51; 
+	**/
 	
-	//private static final int RED_SAT_MAX = 256;
-	//private static final int RED_SAT_MIN = 10;
+	//26-100
+	private static final int RED_HUE_MAX = 7; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
+	private static final int RED_HUE_MIN = 220; // Because hue wraps around at red
+												// 220 = -35 (mod 256)
+	private static final int RED_SAT_MAX = 256;
+	private static final int RED_SAT_MIN = 100;
+		
+	private static final int RED_VAL_MAX = 256; 
+	private static final int RED_VAL_MIN = 104;  
 	
-	//private static final int RED_VAL_MAX = 256; 
-	//private static final int RED_VAL_MIN = 0;  
-	//
+	private static final int YELLOW_HUE_MAX = 70; 
+	private static final int YELLOW_HUE_MIN = 35; 
+	
+	private static final int YELLOW_SAT_MAX = 256;
+	private static final int YELLOW_SAT_MIN = 100;
+		
+	private static final int YELLOW_VAL_MAX = 255; 
+	private static final int YELLOW_VAL_MIN = 104;  
+	
+	private static final int BLUE_HUE_MAX = 185; 
+	private static final int BLUE_HUE_MIN = 150;
+	
+	private static final int BLUE_SAT_MAX = 256;
+	private static final int BLUE_SAT_MIN = 100;
+		
+	private static final int BLUE_VAL_MAX = 256; 
+	private static final int BLUE_VAL_MIN = 104;  
+	
+	private static final int GREEN_HUE_MAX = 130; 
+	private static final int GREEN_HUE_MIN = 50; 
+	
+	private static final int GREEN_SAT_MAX = 256;
+	private static final int GREEN_SAT_MIN = 70;
+		
+	private static final int GREEN_VAL_MAX = 256; 
+	private static final int GREEN_VAL_MIN = 64;  
+	
 	// Member variables
 	//
 	// image state (initialized by constructor)
@@ -97,7 +138,8 @@ public class Image {
 	 */
 	public void writeImage(String filename) throws IOException {
 		File f = new File(filename);
-		ImageIO.write(im, "png", f);
+		//ImageIO.write(im, "png", f);
+		ImageIO.write(im, "jpg", f);
 	}
 	/**
 	 * Determines if the given hsv color is red
@@ -124,24 +166,30 @@ public class Image {
 		int sat = (hsv >> 8) & 0xFF;
 		int hue = (hsv >> 16) & 0xFF;
 		return (YELLOW_HUE_MIN <= hue && hue <= YELLOW_HUE_MAX) &&
-		(100 <= sat && sat <= 200) &&
-		(94 <= val && val <= 220);
+		(YELLOW_SAT_MIN <= sat && sat <= YELLOW_SAT_MAX) &&
+		(YELLOW_VAL_MIN <= val && val <= YELLOW_VAL_MAX);
+		//(100 <= sat && sat <= 200) &&
+		//(94 <= val && val <= 220);
 	}
 	public static boolean isBlue(int hsv) {
 		int val = hsv & 0xFF; 
 		int sat = (hsv >> 8) & 0xFF;
 		int hue = (hsv >> 16) & 0xFF;
 		return (BLUE_HUE_MIN <= hue && hue <= BLUE_HUE_MAX) &&
-		(77 <= sat && sat <= 150) &&
-		(64 <= val && val <= 220);
+		(BLUE_SAT_MIN <= sat && sat <= BLUE_SAT_MAX) &&
+		(BLUE_VAL_MIN <= val && val <= BLUE_VAL_MAX);
+		//(77 <= sat && sat <= 150) &&
+		//(64 <= val && val <= 220);
 	}
 	public static boolean isGreen(int hsv) {
 		int val = hsv & 0xFF; 
 		int sat = (hsv >> 8) & 0xFF;
 		int hue = (hsv >> 16) & 0xFF;
 		return (GREEN_HUE_MIN <= hue && hue <= GREEN_HUE_MAX) &&
-		(90 <= sat && sat <= 250) &&
-		(64 <= val && val <= 200);
+		(GREEN_SAT_MIN <= sat && sat <= GREEN_SAT_MAX) &&
+		(GREEN_VAL_MIN <= val && val <= GREEN_VAL_MAX);
+		//(90 <= sat && sat <= 250) &&
+		//(64 <= val && val <= 200);
 	}
 	/**
 	 * Scans the image for red pixels and computes statistics about
@@ -179,7 +227,17 @@ public class Image {
 			x_position /= area;
 			y_position /= area;
 		}
+		System.out.println("area =  "+area);
 	}
+	
+	/**
+	 * Check if there is a ball in the image.
+	 * @return
+	 */
+	public boolean isBall(){
+		return area > 300;
+	}
+	
 	/**
 	 * Draws statistics on the image. Specifically, draws the bounding
 	 * box in blue, the center-of-mass as a green X, and colors white
@@ -311,7 +369,8 @@ public class Image {
 		// Create the ImageTutorial object, and all that that implies
 		Image it = null; //WTF initialize to null to placate the compiler
 		try {
-			it = new Image("hello/capture3.png");
+			//it = new Image("hello/capture9.png");
+			it = new Image("hello/capture17.jpg");
 		}
 		catch(IOException ioe) {
 			System.out.println("Failed to create ImageTutorial object.");
@@ -327,7 +386,8 @@ public class Image {
 		//System.out.println(it.checkDammValues());
 		// Write the image back to disk
 		try {
-			it.writeImage("capture3result.png");
+			//it.writeImage("capture9result.png");
+			it.writeImage("capture17result.jpg");
 		}
 		catch(IOException ioe) {
 			System.out.println("Failed to write the image to disk");

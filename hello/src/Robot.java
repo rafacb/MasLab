@@ -17,8 +17,8 @@ public class Robot {
 	static Orc orco = Orc.makeOrc();
 	
 	//Analog input
-	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 0);
-	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 1);
+	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 7);
+	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 0);
 	
 	
 	//Motors
@@ -64,7 +64,7 @@ public class Robot {
 		return irs;
 	}
 	
-	public void image(){
+	public boolean image(){
 		BufferedImage pic = cam.capture(true);
 		
 		// Create the ImageTutorial object, and all that that implies
@@ -76,24 +76,26 @@ public class Robot {
 		it.whereIsBall();
 		
 		
-		System.out.println("x = "+ it.pos[0] + " y = "+it.pos[1]);
+		//System.out.println("x = "+ it.pos[0] + " y = "+it.pos[1]);
 		//Store position.
 		pos = it.pos;
 		
 		ImageChannel ic = new ImageChannel("Foto");
 		ic.publish(it.im);
+		
+		return it.isBall();
 	}
 	
 	public void turn(boolean right){
 		double[] speeds = new double[3];
 		if (right){
-			speeds[0] = -.2;
-			speeds[1] = .2;
-			speeds[2] = .8;
+			speeds[0] = .7;
+			speeds[1] = .5;
+			speeds[2] = 1;
 		}else{
-			speeds[0] = .2;
-			speeds[1] = -.2;
-			speeds[2] = .8;
+			speeds[0] = .5;
+			speeds[1] = .7;
+			speeds[2] = 1;
 		}
 		
 		move(speeds);
@@ -103,27 +105,27 @@ public class Robot {
 		double[] speeds = new double[2];
 		double[] irs = input();
 		if ((irs[0] > 2 && irs[1] > 2) || (irs[0] == 0 && irs[0] == 0)){
-			speeds[0] = 0.4;
-			speeds[1] = 0.4;
-			speeds[2] = .8;
+			speeds[0] = 0.7;
+			speeds[1] = 0.7;
+			speeds[2] = 1;
 			
 			move(speeds);
 		}else if (irs[0] < 2){
-			speeds[0] = 0.4;
-			speeds[1] = -0.4;
-			speeds[2] = .8;
+			speeds[0] = 0.7;
+			speeds[1] = -0.7;
+			speeds[2] = 1;
 			
 			move(speeds);
 		}else if (irs[1] < 2){
-			speeds[0] = -0.4;
-			speeds[1] = 0.4;
-			speeds[2] = .8;
+			speeds[0] = -0.7;
+			speeds[1] = 0.7;
+			speeds[2] = 1;
 			
 			move(speeds);
 		}else{
-			speeds[0] = -0.3;
-			speeds[1] = -0.4;
-			speeds[2] = .8;
+			speeds[0] = -0.6;
+			speeds[1] = -0.7;
+			speeds[2] = 1;
 			
 			move(speeds);
 		}
