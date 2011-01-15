@@ -28,8 +28,10 @@ public class MoveWithCam {
 				//If the ball is seen in the right side of the picture, then turn right
 				//Do the opposite if it's seen on the left side.
 				if (robot.pos[0] < 150){
+					System.out.println("Veo bola a la izq, mueve derecha");
 					robot.turn(true);
 				}else if (robot.pos[0] > 170){
+					System.out.println("Veo bola a la der, mueve izq");
 					robot.turn(false);
 				}
 			}else{

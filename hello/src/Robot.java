@@ -102,30 +102,37 @@ public class Robot {
 	}
 	
 	public void randomWalk(){
-		double[] speeds = new double[2];
+		double[] speeds = new double[3];
 		double[] irs = input();
-		if ((irs[0] > 2 && irs[1] > 2) || (irs[0] == 0 && irs[0] == 0)){
+		System.out.println("irsD = "+irs[0]);
+		System.out.println("irsIzq = "+irs[1]);
+		
+		if ((irs[0] > 1 && irs[1] > 1) || (irs[0] == 0 && irs[0] == 0)){
 			speeds[0] = 0.7;
 			speeds[1] = 0.7;
 			speeds[2] = 1;
+			System.out.println("Pa lante");
 			
 			move(speeds);
-		}else if (irs[0] < 2){
+		}else if (irs[0] <= 1){
 			speeds[0] = 0.7;
 			speeds[1] = -0.7;
 			speeds[2] = 1;
+			System.out.println("Pa la izq");
 			
 			move(speeds);
-		}else if (irs[1] < 2){
+		}else if (irs[1] <= 1){
 			speeds[0] = -0.7;
 			speeds[1] = 0.7;
 			speeds[2] = 1;
+			System.out.println("Pa la derecha");
 			
 			move(speeds);
 		}else{
 			speeds[0] = -0.6;
 			speeds[1] = -0.7;
 			speeds[2] = 1;
+			System.out.println("Ramdom");
 			
 			move(speeds);
 		}
