@@ -33,9 +33,10 @@ public class MoveWithCam {
 				}else if (robot.pos[0] > 170){
 					System.out.println("Veo bola a la der, mueve izq");
 					robot.turn(false);
-				}
+				}System.out.println("Pa lante como el elefante...");
+				robot.move(new double[] {.3,.3,1});
 			}else{
-				robot.randomWalk();
+				//robot.randomWalk();
 			}
 			
 			
