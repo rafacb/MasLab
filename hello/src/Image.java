@@ -86,7 +86,7 @@ public class Image {
 	//
 	// image state (initialized by constructor)
 	public BufferedImage im;
-	private int width, height;
+	public int width, height;
 	// red blob statistics //#*$@ Are there better things to
 	private int area = 0; // which to initialize these? Yes.
 	private int x_position = 0, y_position = 0; // Do I care right now? No.

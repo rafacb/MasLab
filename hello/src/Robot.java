@@ -28,6 +28,8 @@ public class Robot {
 	
 	//Camera
 	public Camera cam;
+	public int height;
+	public int width;
 	
 	//Position of redBall
 	int[] pos = new int[2];
@@ -74,6 +76,9 @@ public class Robot {
 		it.find_red_blob();
 		it.renderStatistics();
 		it.whereIsBall();
+		height = it.height;
+		width = it.width;
+		
 		
 		
 		//System.out.println("x = "+ it.pos[0] + " y = "+it.pos[1]);
