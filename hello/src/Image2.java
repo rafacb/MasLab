@@ -103,7 +103,7 @@ public class Image2 {
 	
 	//goal variables
 	private int goal_area = 0; // which to initialize these? Yes.
-	private int x_goal = 0, y_goal = 0; // Do I care right now? No.
+	public int x_goal = 0, y_goal = 0; // Do I care right now? No.
 	private int x_goal_min = 0, x_goal_max = 0, y_goal_min = 0, y_goal_max = 0;
 	
 	public int[] pos = new int[2];
@@ -331,7 +331,7 @@ public class Image2 {
 
 					x_goal_max = (x > x_goal_max) ? x : x_goal_max; // a ? b : c <==> if a then b else c
 					y_goal_max = (y > y_goal_max) ? y : y_goal_max;
-				}else if (color == "red" && isRed(pixel)){
+				}else if (color.equals("red") && isRed(pixel)){
 					area++;
 					x_position += x;
 					y_position += y;
@@ -340,7 +340,7 @@ public class Image2 {
 
 					x_max = (x > x_max) ? x : x_max; // a ? b : c <==> if a then b else c
 					y_max = (y > y_max) ? y : y_max;
-				}else if (color == "green" && isGreen(pixel)){
+				}else if (color.equals("green") && isGreen(pixel)){
 					area++;
 					x_position += x;
 					y_position += y;
@@ -426,7 +426,7 @@ public class Image2 {
 	 * previously been called
 	 * @modifies im
 	 */
-	public void renderStatistics(boolean isRed) {
+	public void renderStatistics(String color) {
 		// make sure we've computed statistics
 		if(area == 0 && x_min == 0) //WTF Why is this test sufficient? Think about it.
 			throw new IllegalStateException("renderStatistics() called before find_red_blob()");
@@ -463,7 +463,7 @@ public class Image2 {
 		g.drawRect(x_min, y_min, x_max-x_min, y_max-y_min);
 		//WTF Note that drawRect() takes x, y, width, height;
 		//now for the center-of-mass
-		if (isRed){
+		if (color.equals("red")){
 			g.setColor(Color.green);
 		}else{
 			g.setColor(Color.red);
@@ -562,7 +562,7 @@ public class Image2 {
 		System.out.println(it.isGoal());
 		System.out.println(it.isBall());
 		// Show the work
-		it.renderStatistics(false);
+		it.renderStatistics("green");
 		// Print the statistics
 		//System.out.println(it.statisticsToString());
 		//System.out.println(it.checkDammValues());
