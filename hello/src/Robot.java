@@ -94,12 +94,12 @@ public class Robot {
 	public void turn(boolean right){
 		double[] speeds = new double[3];
 		if (right){
-			speeds[0] = .3;
-			speeds[1] = .2;
+			speeds[0] = 1;
+			speeds[1] = -1;
 			speeds[2] = 1;
 		}else{
-			speeds[0] = .2;
-			speeds[1] = .3;
+			speeds[0] = -1;
+			speeds[1] = 1;
 			speeds[2] = 1;
 		}
 		
@@ -111,36 +111,63 @@ public class Robot {
 		double[] irs = input();
 		System.out.println("irsD = "+irs[0]);
 		System.out.println("irsIzq = "+irs[1]);
-		
-		if ((irs[0] > 1.0 && irs[1] > 1.0) || (irs[0] == 0.0 && irs[1] == 0.0)){
+		//Alante
+		if ((irs[0] >= .3 && irs[1] >= .3) 
+				|| (irs[0] == 0.0 && irs[1] == 0.0)
+				|| (irs[0] == 0.0 && irs[1] > .3)
+				|| (irs[0] > .3 && irs [1] == 0.0)){
 			speeds[0] = 0.7;
 			speeds[1] = 0.7;
 			speeds[2] = 1;
 			System.out.println("Pa lante");
 			
-			//move(speeds);
-		}else if (irs[0] <= 1.0 && irs[1] > 0){
-			speeds[0] = 0.7;
+			move(speeds);
+		}
+		//Atras
+		else if ((irs[0] < .3 && irs[1] < .3) 
+				&& (irs[0] != 0) && (irs[1] != 0)){
+			speeds[0] = -0.7;
 			speeds[1] = -0.7;
 			speeds[2] = 1;
-			System.out.println("Pa la izq");
+			System.out.println("Back down!");
 			
-			//move(speeds);
-		}else if (irs[1] <= 1.0 && irs[0] > 0){
+			move(speeds);
+		}
+		//Derecha
+		else if ((irs[1] < .3 && irs[1] != 0.0) 
+				&& (irs[0] == 0 || irs[0] > .3)){
 			speeds[0] = -0.7;
 			speeds[1] = 0.7;
 			speeds[2] = 1;
-			System.out.println("Pa la derecha");
+			System.out.println("Pa la izq");
 			
-			//move(speeds);
-		}else{
-			speeds[0] = -0.6;
+			move(speeds);
+		}
+		//Izq
+		else if ((irs[0] < .3 && irs[0] != 0.0) 
+				&& (irs[1] == 0 || irs[1] > .3)){
+			speeds[0] = 0.7;
 			speeds[1] = -0.7;
 			speeds[2] = 1;
-			System.out.println("Ramdom");
+			System.out.println("Pa la derecha");
 			
-			//move(speeds);
+			move(speeds);
 		}
+		/**if (irs[0] > .3 || irs[0] == 0.0){
+			speeds[0] = 0.5;
+			speeds[1] = 0.5;
+			speeds[2] = 1;
+			System.out.println("Pa lante");
+			
+			move(speeds);
+		}else if (irs[0] <= .3){
+			speeds[0] = 0.5;
+			speeds[1] = -0.5;
+			speeds[2] = 1;
+			System.out.println("Pa la izq");
+			
+			move(speeds);
+		}**/
 	}
 
 	

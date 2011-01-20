@@ -230,6 +230,46 @@ public class Image {
 		//System.out.println("area =  "+area);
 	}
 	
+	
+	/**
+	 * Scans the image for red pixels and computes statistics about
+	 * them
+	 *
+	 * @modifies all statistics member variables
+	 */
+	public void find_green_blob() {
+		// initialize statistics
+		area = 0;
+		x_position = y_position = 0;
+		x_min = y_min = Integer.MAX_VALUE;
+		//WTF Why MAX_VALUE? So that it will always
+		// update on the first pixel. We could also
+		// have used width and height.
+		x_max = y_max = 0;
+		// scan through every pixel in the image
+		for(int y = 0; y < height; y++) {
+			for(int x = 0; x < width; x++) {
+				int pixel = im.getRGB(x,y);
+				if(isGreen(pixel)) {
+					area++;
+					x_position += x;
+					y_position += y;
+					x_min = (x < x_min) ? x : x_min; //IMHO Yay for the conditional operator
+					y_min = (y < y_min) ? y : y_min; //WTF Conditional operator?
+
+					x_max = (x > x_max) ? x : x_max; // a ? b : c <==> if a then b else c
+					y_max = (y > y_max) ? y : y_max;
+				}
+			}
+		}
+		// finish updating statistics
+		if(area != 0) { //there may not have been any red
+			x_position /= area;
+			y_position /= area;
+		}
+		//System.out.println("area =  "+area);
+	}
+	
 	/**
 	 * Check if there is a ball in the image.
 	 * @return
