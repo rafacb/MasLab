@@ -437,7 +437,7 @@ public class Image2 {
 	 * previously been called
 	 * @modifies im
 	 */
-	public void renderStatistics(boolean isRed) {
+	public void renderStatistics(String color) {
 		// make sure we've computed statistics
 		if(area == 0 && x_min == 0) //WTF Why is this test sufficient? Think about it.
 			throw new IllegalStateException("renderStatistics() called before find_red_blob()");
@@ -474,7 +474,7 @@ public class Image2 {
 		g.drawRect(x_min, y_min, x_max-x_min, y_max-y_min);
 		//WTF Note that drawRect() takes x, y, width, height;
 		//now for the center-of-mass
-		if (isRed){
+		if (color.equals("red")){
 			g.setColor(Color.green);
 		}else{
 			g.setColor(Color.red);
@@ -576,7 +576,7 @@ public class Image2 {
 		System.out.println("black = "+it.black_area);
 		System.out.println("yellow = "+it.yellow_area);
 		// Show the work
-		it.renderStatistics(false);
+		it.renderStatistics("green");
 		// Print the statistics
 		//System.out.println(it.statisticsToString());
 		//System.out.println(it.checkDammValues());
