@@ -102,8 +102,8 @@ public class Image2 {
 	private int x_min = 0, x_max = 0, y_min = 0, y_max = 0;
 	
 	//goal variables
-	private int goal_area = 0; // which to initialize these? Yes.
-	public int x_goal = 0, y_goal = 0; // Do I care right now? No.
+	private int goal_area = 0, black_area = 0, yellow_area = 0; // which to initialize these? Yes.
+	private int x_goal = 0, y_goal = 0; // Do I care right now? No.
 	private int x_goal_min = 0, x_goal_max = 0, y_goal_min = 0, y_goal_max = 0;
 	
 	public int[] pos = new int[2];
@@ -322,8 +322,9 @@ public class Image2 {
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++) {
 				int pixel = im.getRGB(x,y);
-				if(isYellow(pixel) || isBlack(pixel)) {
+				if(isYellow(pixel)) {
 					goal_area++;
+					yellow_area++;
 					x_goal += x;
 					y_goal += y;
 					x_goal_min = (x < x_goal_min) ? x : x_goal_min; //IMHO Yay for the conditional operator
@@ -331,7 +332,17 @@ public class Image2 {
 
 					x_goal_max = (x > x_goal_max) ? x : x_goal_max; // a ? b : c <==> if a then b else c
 					y_goal_max = (y > y_goal_max) ? y : y_goal_max;
-				}else if (color.equals("red") && isRed(pixel)){
+				}else if (isBlack(pixel)){
+					goal_area++;
+					black_area++;
+					x_goal += x;
+					y_goal += y;
+					x_goal_min = (x < x_goal_min) ? x : x_goal_min; //IMHO Yay for the conditional operator
+					y_goal_min = (y < y_goal_min) ? y : y_goal_min; //WTF Conditional operator?
+
+					x_goal_max = (x > x_goal_max) ? x : x_goal_max; // a ? b : c <==> if a then b else c
+					y_goal_max = (y > y_goal_max) ? y : y_goal_max;
+				}else if (color == "red" && isRed(pixel)){
 					area++;
 					x_position += x;
 					y_position += y;
@@ -340,7 +351,7 @@ public class Image2 {
 
 					x_max = (x > x_max) ? x : x_max; // a ? b : c <==> if a then b else c
 					y_max = (y > y_max) ? y : y_max;
-				}else if (color.equals("green") && isGreen(pixel)){
+				}else if (color == "green" && isGreen(pixel)){
 					area++;
 					x_position += x;
 					y_position += y;
@@ -410,7 +421,7 @@ public class Image2 {
 	 * @return
 	 */
 	public boolean isGoal(){
-		return !isYellow(im.getRGB(x_goal, y_goal));
+		return (yellow_area > black_area +1000) && !isYellow(im.getRGB(x_goal, y_goal));
 	}
 	
 	/**
@@ -548,7 +559,7 @@ public class Image2 {
 		Image2 it = null; //WTF initialize to null to placate the compiler
 		try {
 			//it = new Image("hello/capture9.png");
-			it = new Image2("hello/capture11.jpg");
+			it = new Image2("hello/capture13.jpg");
 		}
 		catch(IOException ioe) {
 			System.out.println("Failed to create ImageTutorial object.");
@@ -560,7 +571,10 @@ public class Image2 {
 		it.find_objects("green");
 		//it.find_goal();
 		System.out.println(it.isGoal());
-		System.out.println(it.isBall());
+		//System.out.println(it.isBall());
+		System.out.println("total = "+it.goal_area);
+		System.out.println("black = "+it.black_area);
+		System.out.println("yellow = "+it.yellow_area);
 		// Show the work
 		it.renderStatistics("green");
 		// Print the statistics
@@ -569,7 +583,7 @@ public class Image2 {
 		// Write the image back to disk
 		try {
 			//it.writeImage("capture9result.png");
-			it.writeImage("capture11result.jpg");
+			it.writeImage("capture13result.jpg");
 		}
 		catch(IOException ioe) {
 			System.out.println("Failed to write the image to disk");
