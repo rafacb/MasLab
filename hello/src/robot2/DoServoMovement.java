@@ -12,6 +12,12 @@ public class DoServoMovement {
 			
 			Robot robot = new Robot();
 			
+			for (int i = 0; i < 10; i++){
+				robot.moveServo(false);
+			}for (int i = 0; i < 10; i++){
+				robot.moveServo(true);
+			}
+			
 			//long startTime = System.currentTimeMillis();
 			//long maxDurationInMilliseconds =3*60*1000;
 	
