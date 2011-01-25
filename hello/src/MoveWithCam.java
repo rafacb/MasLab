@@ -54,13 +54,13 @@ public class MoveWithCam {
 				}
 				
 				
-			} else if (robot.isGoal){
+				/**} else if (robot.isGoal){
 				canal.publish("Veo Goal!!\n");
 				for (int i = 0; i < 5; i++){
 					robot.move(new double[] {-1,-1,-1});
 				}for (int i = 0; i < 3; i++){
 					robot.move(new double[] {1,1,-1});
-				}
+				}**/
 			}else {
 				canal.publish("No Veo Nada!! Random Walk!!\n");
 				System.out.println("No veo!!");

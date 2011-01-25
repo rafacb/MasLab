@@ -40,6 +40,7 @@ public class Robot {
 	//Position of Ball and goal
 	int[] ball_pos = new int[2];
 	int[] goal_pos = new int[2];
+	int[] wall_pos = new int[2];
 	
 	//Can you see something good?
 	boolean isBall;
@@ -103,6 +104,10 @@ public class Robot {
 		ball_pos = it.pos;
 		goal_pos[0] = it.x_goal;
 		goal_pos[1] = it.y_goal;
+		
+		if (it.isWall()){
+			wall_pos = it.pos;
+		}
 		
 		ImageChannel ic = new ImageChannel("Pato Cam");
 		ic.publish(it.im);
