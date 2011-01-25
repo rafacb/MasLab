@@ -27,7 +27,7 @@ public class Robot {
 	static Motor motorR = new Motor(orco, 0, false);
 	static Motor motorL = new Motor(orco, 1, true);
 	static Motor drib = new Motor(orco, 2, true);
-	static Servo servo = new Servo(orco, 4, 0, 700, Math.PI/2, 1800);
+	static Servo servo = Servo.makeMPIMX400(orco, 0);
 	
 	//Camera
 	public Camera cam;
@@ -64,8 +64,8 @@ public class Robot {
 	
 	public void moveServo(boolean x){
 		if (x){
-			servo.setPulseWidth(1800);
-		}servo.setPulseWidth(700);
+			servo.setPosition(-Math.PI/2);
+		}servo.setPosition(Math.PI/4);
 	}
 	
 	/**
