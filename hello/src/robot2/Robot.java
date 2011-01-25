@@ -67,12 +67,8 @@ public class Robot {
 		Motor.setMultiplePWM(motors, speeds);
 	}
 	
-	public void moveServo(boolean x){
-		if (x){
-			servo.setPosition(-Math.PI/2);
-		}else{
-			servo.setPosition(Math.PI);
-		}
+	public void moveServo(double angle){
+		servo.setPosition(angle);
 	}
 	
 	/**

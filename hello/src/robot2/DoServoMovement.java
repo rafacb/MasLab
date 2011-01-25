@@ -14,13 +14,15 @@ public class DoServoMovement {
 			
 			while (true){
 			
-				robot.servo.setPosition(Math.PI*.4);
+				robot.moveServo(Math.PI*.4);
 				
 				
 				Thread.sleep(3000);
 				
 				System.out.println("NoW!");
-				robot.servo.setPosition(Math.PI*.18);
+				robot.moveServo(Math.PI*.18);
+				
+				Thread.sleep(3000);
 			
 			//System.out.println(robot.gyro.getTheta());
 			
