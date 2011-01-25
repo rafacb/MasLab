@@ -96,6 +96,7 @@ public class Image2 {
 	// image state (initialized by constructor)
 	public BufferedImage im;
 	public int width, height;
+	private int importantStuff = 0;
 	// red blob statistics //#*$@ Are there better things to
 	private int area = 0; // which to initialize these? Yes.
 	private int x_position = 0, y_position = 0; // Do I care right now? No.
@@ -106,6 +107,7 @@ public class Image2 {
 	public int x_goal = 0, y_goal = 0; // Do I care right now? No.
 	private int x_goal_min = 0, x_goal_max = 0, y_goal_min = 0, y_goal_max = 0;
 	
+	//Position of ball
 	public int[] pos = new int[2];
 
 	//
@@ -158,6 +160,89 @@ public class Image2 {
 			ImageIO.write(im, "jpg", f);
 		}
 	}
+	
+	public void findBoundaries(){
+		int blueCount = 0;
+		for(int y = 0; y < height; y++) {
+			if (blueCount > width/9){
+				System.out.println("blueCount = "+blueCount);
+				importantStuff = y-1;
+				break;
+			}
+			for(int x = 0; x < width; x++) {
+				int pixel = im.getRGB(x,y);
+				if(isBlue(pixel)) {
+					blueCount++;
+				}
+			}
+		}
+	}
+	
+	public void renderStatistics2(String color) {
+		// make sure we've computed statistics
+		if(area == 0 && x_min == 0) //WTF Why is this test sufficient? Think about it.
+			throw new IllegalStateException("renderStatistics() called before find_red_blob()");
+		//Get a graphics context so we can draw on im
+		Graphics2D g = im.createGraphics();
+		
+		//iterate through the image
+		for(int y = 0; y < height; y++) {
+			for(int x = 0; x < width; x++) {
+				// for each pixel we think is red, color it white
+				if (y < importantStuff){
+					g.setColor(Color.black);
+					g.drawLine(x,y,x,y);
+				}else if(isRed(im.getRGB(x,y))) {
+					g.setColor(Color.red);
+					g.drawLine(x,y,x,y);
+				}else if (isYellow(im.getRGB(x, y))){
+					g.setColor(Color.yellow);
+					g.drawLine(x,y,x,y);
+				}else if ((isBlue(im.getRGB(x, y)))){
+					g.setColor(Color.blue);
+					g.drawLine(x,y,x,y);
+				}else if (isGreen(im.getRGB(x, y))){
+					g.setColor(Color.green);
+					g.drawLine(x, y, x, y);
+				}else if (isBlack(im.getRGB(x, y))){
+					g.setColor(Color.black);
+					g.drawLine(x, y, x, y);
+				}else{
+					g.setColor(Color.pink);
+					g.drawLine(x,y,x,y);
+				}
+			}
+		}
+		//now for the bounding box
+		g.setColor(Color.pink);
+		g.drawRect(x_min, y_min, x_max-x_min, y_max-y_min);
+		//WTF Note that drawRect() takes x, y, width, height;
+		//now for the center-of-mass
+		if (color.equals("red")){
+			g.setColor(Color.green);
+		}else{
+			g.setColor(Color.red);
+		}
+		
+		g.drawLine(x_position-10, y_position-10,
+				x_position+10, y_position+10);
+		g.drawLine(x_position-10, y_position+10,
+				x_position+10, y_position-10);
+		
+		//Draw the X on the goal
+		if (isGoal()){
+			g.drawLine(x_goal-10, y_goal-10,
+					x_goal+10, y_goal+10);
+			g.drawLine(x_goal-10, y_goal+10,
+					x_goal+10, y_goal-10);
+		}
+		
+		pos[0] = x_position;
+		pos[1] = y_position;
+		
+	}
+	
+	
 	/**
 	 * Determines if the given hsv color is red
 	 *
@@ -376,6 +461,78 @@ public class Image2 {
 	}
 	
 	
+	public void find_objects2(String color) {
+		// initialize statistics
+		goal_area = 0;
+		x_goal = y_goal = 0;
+		x_goal_min = y_goal_min = Integer.MAX_VALUE;
+		// initialize statistics
+		area = 0;
+		x_position = y_position = 0;
+		x_min = y_min = Integer.MAX_VALUE;
+		//WTF Why MAX_VALUE? So that it will always
+		// update on the first pixel. We could also
+		// have used width and height.
+		x_goal_max = y_goal_max = 0;
+		x_max = y_max = 0;
+		// scan through every pixel in the image
+		for(int y = importantStuff; y < height; y++) {
+			for(int x = 0; x < width; x++) {
+				int pixel = im.getRGB(x,y);
+				if(isYellow(pixel)) {
+					goal_area++;
+					yellow_area++;
+					x_goal += x;
+					y_goal += y;
+					x_goal_min = (x < x_goal_min) ? x : x_goal_min; //IMHO Yay for the conditional operator
+					y_goal_min = (y < y_goal_min) ? y : y_goal_min; //WTF Conditional operator?
+
+					x_goal_max = (x > x_goal_max) ? x : x_goal_max; // a ? b : c <==> if a then b else c
+					y_goal_max = (y > y_goal_max) ? y : y_goal_max;
+				}else if (isBlack(pixel)){
+					goal_area++;
+					black_area++;
+					x_goal += x;
+					y_goal += y;
+					x_goal_min = (x < x_goal_min) ? x : x_goal_min; //IMHO Yay for the conditional operator
+					y_goal_min = (y < y_goal_min) ? y : y_goal_min; //WTF Conditional operator?
+
+					x_goal_max = (x > x_goal_max) ? x : x_goal_max; // a ? b : c <==> if a then b else c
+					y_goal_max = (y > y_goal_max) ? y : y_goal_max;
+				}else if (color == "red" && isRed(pixel)){
+					area++;
+					x_position += x;
+					y_position += y;
+					x_min = (x < x_min) ? x : x_min; //IMHO Yay for the conditional operator
+					y_min = (y < y_min) ? y : y_min; //WTF Conditional operator?
+
+					x_max = (x > x_max) ? x : x_max; // a ? b : c <==> if a then b else c
+					y_max = (y > y_max) ? y : y_max;
+				}else if (color == "green" && isGreen(pixel)){
+					area++;
+					x_position += x;
+					y_position += y;
+					x_min = (x < x_min) ? x : x_min; //IMHO Yay for the conditional operator
+					y_min = (y < y_min) ? y : y_min; //WTF Conditional operator?
+
+					x_max = (x > x_max) ? x : x_max; // a ? b : c <==> if a then b else c
+					y_max = (y > y_max) ? y : y_max;
+				}
+			}
+		}
+		// finish updating statistics
+		if(goal_area != 0) { //there may not have been any goals
+			x_goal /= goal_area;
+			y_goal /= goal_area;
+		}
+		// finish updating statistics
+		if(area != 0) { //there may not have been any red
+			x_position /= area;
+			y_position /= area;
+		}
+	}
+	
+	
 	public void find_goal() {
 		// initialize statistics
 		goal_area = 0;
@@ -421,7 +578,7 @@ public class Image2 {
 	 * @return
 	 */
 	public boolean isGoal(){
-		return (yellow_area > black_area +1000) && !isYellow(im.getRGB(x_goal, y_goal));
+		return ((yellow_area > black_area +1000) && !isYellow(im.getRGB(x_goal, y_goal)));
 	}
 	
 	/**
@@ -568,7 +725,8 @@ public class Image2 {
 		}
 		// Do the work
 		//it.find_green_blob();
-		it.find_objects("green");
+		it.findBoundaries();
+		it.find_objects2("red");
 		//it.find_goal();
 		System.out.println(it.isGoal());
 		//System.out.println(it.isBall());
@@ -576,7 +734,9 @@ public class Image2 {
 		System.out.println("black = "+it.black_area);
 		System.out.println("yellow = "+it.yellow_area);
 		// Show the work
-		it.renderStatistics("green");
+		//it.renderStatistics("green");
+		System.out.println("important stuff = "+it.importantStuff);
+		it.renderStatistics2("red");
 		// Print the statistics
 		//System.out.println(it.statisticsToString());
 		//System.out.println(it.checkDammValues());
