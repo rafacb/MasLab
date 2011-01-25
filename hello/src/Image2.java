@@ -103,7 +103,7 @@ public class Image2 {
 	
 	//goal variables
 	private int goal_area = 0, black_area = 0, yellow_area = 0; // which to initialize these? Yes.
-	private int x_goal = 0, y_goal = 0; // Do I care right now? No.
+	public int x_goal = 0, y_goal = 0; // Do I care right now? No.
 	private int x_goal_min = 0, x_goal_max = 0, y_goal_min = 0, y_goal_max = 0;
 	
 	public int[] pos = new int[2];

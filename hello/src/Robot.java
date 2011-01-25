@@ -31,8 +31,13 @@ public class Robot {
 	public int height;
 	public int width;
 	
-	//Position of redBall
-	int[] pos = new int[2];
+	//Position of Ball and goal
+	int[] ball_pos = new int[2];
+	int[] goal_pos = new int[2];
+	
+	//Can you see something good?
+	boolean isBall;
+	boolean isGoal;
 	
 	
 	/**
@@ -66,16 +71,16 @@ public class Robot {
 		return irs;
 	}
 	
-	public boolean image(){
+	public void image(){
 		BufferedImage pic = cam.capture(true);
 		
 		// Create the ImageTutorial object, and all that that implies
-		Image it = null; //WTF initialize to null to placate the compiler
-		it = new Image(pic);
+		Image2 it = null; //WTF initialize to null to placate the compiler
+		it = new Image2(pic);
 		// Do the work
-		it.find_red_blob();
-		it.renderStatistics();
-		it.whereIsBall();
+		//it.find_red_blob();
+		it.find_objects("green");
+		it.renderStatistics("green");
 		height = it.height;
 		width = it.width;
 		
@@ -83,12 +88,15 @@ public class Robot {
 		
 		//System.out.println("x = "+ it.pos[0] + " y = "+it.pos[1]);
 		//Store position.
-		pos = it.pos;
+		ball_pos = it.pos;
+		goal_pos[0] = it.x_goal;
+		goal_pos[1] = it.y_goal;
 		
 		ImageChannel ic = new ImageChannel("Foto");
 		ic.publish(it.im);
 		
-		return it.isBall();
+		isBall = it.isBall();
+		isGoal = it.isGoal();
 	}
 	
 	public void turn(boolean right){
@@ -109,8 +117,8 @@ public class Robot {
 	public void randomWalk(){
 		double[] speeds = new double[3];
 		double[] irs = input();
-		System.out.println("irsD = "+irs[0]);
-		System.out.println("irsIzq = "+irs[1]);
+		//System.out.println("irsD = "+irs[0]);
+		//System.out.println("irsIzq = "+irs[1]);
 		//Alante
 		if ((irs[0] >= .3 && irs[1] >= .3) 
 				|| (irs[0] == 0.0 && irs[1] == 0.0)
@@ -119,7 +127,7 @@ public class Robot {
 			speeds[0] = 0.7;
 			speeds[1] = 0.7;
 			speeds[2] = 1;
-			System.out.println("Pa lante");
+			//System.out.println("Pa lante");
 			
 			move(speeds);
 		}
@@ -129,7 +137,7 @@ public class Robot {
 			speeds[0] = -0.7;
 			speeds[1] = -0.7;
 			speeds[2] = 1;
-			System.out.println("Back down!");
+			//System.out.println("Back down!");
 			
 			move(speeds);
 		}
@@ -139,7 +147,7 @@ public class Robot {
 			speeds[0] = -0.7;
 			speeds[1] = 0.7;
 			speeds[2] = 1;
-			System.out.println("Pa la izq");
+			//System.out.println("Pa la izq");
 			
 			move(speeds);
 		}
@@ -149,7 +157,7 @@ public class Robot {
 			speeds[0] = 0.7;
 			speeds[1] = -0.7;
 			speeds[2] = 1;
-			System.out.println("Pa la derecha");
+			//System.out.println("Pa la derecha");
 			
 			move(speeds);
 		}

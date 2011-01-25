@@ -1,8 +1,11 @@
 import java.io.IOException;
 
+import maslab.telemetry.channel.TextChannel;
+
 public class MoveWithCam {
 	// Variables to store speeds of the motors
 	static double[] speeds = new double[2];
+	static TextChannel canal = new TextChannel("The Mighty Patos!");
 
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
@@ -19,21 +22,24 @@ public class MoveWithCam {
 			 **/
 			
 			// if (count%20 == 0){
-			if (robot.image()) {
+			
+			robot.image();
+			if (robot.isBall) {
+				canal.publish("Veo Bola!!\n");
 				int width = robot.width / 2;
 				// If the ball is seen in the right side of the picture, then
 				// turn right
 				// Do the opposite if it's seen on the left side.
-				System.out.println("pos = "+robot.pos[0] + " w = "+(width-100)+" w = "+(width+100));
+				//System.out.println("pos = "+robot.ball_pos[0] + " w = "+(width-100)+" w = "+(width+100));
 				
-				if (robot.pos[0] > width + 100) {
+				if (robot.ball_pos[0] > width + 100) {
 					//System.out.println("Veo bola a la derecha, mueve izq");
 					//robot.turn(true);
 					//for (int i = 0; i < 10; i++){
 						robot.move(new double[] {-.4,.4,1});
 						Thread.sleep(80);
 					//}
-				} else if (robot.pos[0] < width - 100) {
+				} else if (robot.ball_pos[0] < width - 100) {
 					//System.out.println("Veo bola a la izq, mueve derecha");
 					//robot.turn(false);
 					//for (int i = 0; i < 10; i++){
@@ -48,7 +54,15 @@ public class MoveWithCam {
 				}
 				
 				
-			} else {
+			} else if (robot.isGoal){
+				canal.publish("Veo Goal!!\n");
+				for (int i = 0; i < 5; i++){
+					robot.move(new double[] {-1,-1,-1});
+				}for (int i = 0; i < 3; i++){
+					robot.move(new double[] {1,1,-1});
+				}
+			}else {
+				canal.publish("No Veo Nada!! Random Walk!!\n");
 				System.out.println("No veo!!");
 				robot.randomWalk();
 			}
