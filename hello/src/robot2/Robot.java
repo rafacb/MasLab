@@ -65,7 +65,9 @@ public class Robot {
 	public void moveServo(boolean x){
 		if (x){
 			servo.setPosition(-Math.PI/2);
-		}servo.setPosition(Math.PI/4);
+		}else{
+			servo.setPosition(Math.PI);
+		}
 	}
 	
 	/**
