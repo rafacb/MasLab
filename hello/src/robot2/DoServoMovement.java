@@ -8,21 +8,19 @@ public class DoServoMovement {
 	
 	public static double[] irs;
 	
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException, InterruptedException{
 			
 			Robot robot = new Robot();
-			
-			int i = 0;
 			
 			while (true){
 			
 				robot.servo.setPosition(Math.PI*.4);
 				
-				if (i%1500 == 0){
-					System.out.println("NoW!");
-					robot.servo.setPosition(Math.PI*.18);
-				}i++;
-			//robot.gyro.reset();
+				
+				Thread.sleep(3000);
+				
+				System.out.println("NoW!");
+				robot.servo.setPosition(Math.PI*.18);
 			
 			//System.out.println(robot.gyro.getTheta());
 			
