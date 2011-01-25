@@ -20,8 +20,8 @@ public class Robot {
 	static Orc orco = Orc.makeOrc();
 	
 	//Analog input
-	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 7);
-	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 0);
+	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 0);
+	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 7);
 	
 	
 	//Motors
@@ -30,7 +30,7 @@ public class Robot {
 	static Servo servo = Servo.makeMPIMX400(orco, 0);
 	
 	//Gyro
-	Gyro gyro = new Gyro(orco, 4);
+	Gyro gyro = new Gyro(orco, 2);
 	
 	//Camera
 	public Camera cam;

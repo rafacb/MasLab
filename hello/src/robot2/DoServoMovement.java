@@ -12,11 +12,19 @@ public class DoServoMovement {
 			
 			Robot robot = new Robot();
 			
+			int i = 0;
+			
 			while (true){
 			
-			robot.moveServo(false);
+				robot.servo.setPosition(Math.PI*.4);
+				
+				if (i%1500 == 0){
+					System.out.println("NoW!");
+					robot.servo.setPosition(Math.PI*.18);
+				}i++;
+			//robot.gyro.reset();
 			
-			System.out.println(robot.gyro.getTheta());
+			//System.out.println(robot.gyro.getTheta());
 			
 			}
 			//long startTime = System.currentTimeMillis();
