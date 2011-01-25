@@ -103,7 +103,7 @@ public class Image2 {
 	private int x_min = 0, x_max = 0, y_min = 0, y_max = 0;
 	
 	//goal variables
-	private int goal_area = 0, black_area = 0, yellow_area = 0; // which to initialize these? Yes.
+	private int goal_area = 0, black_area = 0, yellow_area = 0, blue_area = 0; // which to initialize these? Yes.
 	public int x_goal = 0, y_goal = 0; // Do I care right now? No.
 	private int x_goal_min = 0, x_goal_max = 0, y_goal_min = 0, y_goal_max = 0;
 	
@@ -427,6 +427,8 @@ public class Image2 {
 
 					x_goal_max = (x > x_goal_max) ? x : x_goal_max; // a ? b : c <==> if a then b else c
 					y_goal_max = (y > y_goal_max) ? y : y_goal_max;
+				}else if (isBlue(pixel)){
+					blue_area++;
 				}else if (color == "red" && isRed(pixel)){
 					area++;
 					x_position += x;
@@ -489,6 +491,8 @@ public class Image2 {
 
 					x_goal_max = (x > x_goal_max) ? x : x_goal_max; // a ? b : c <==> if a then b else c
 					y_goal_max = (y > y_goal_max) ? y : y_goal_max;
+				}else if (isBlue(pixel)){
+					blue_area++;
 				}else if (isBlack(pixel)){
 					goal_area++;
 					black_area++;
@@ -579,6 +583,10 @@ public class Image2 {
 	 */
 	public boolean isGoal(){
 		return ((yellow_area > black_area +1000) && !isYellow(im.getRGB(x_goal, y_goal)));
+	}
+	
+	public boolean isWall(){
+		return (yellow_area/blue_area >= .7);
 	}
 	
 	/**
@@ -728,7 +736,7 @@ public class Image2 {
 		it.findBoundaries();
 		it.find_objects2("red");
 		//it.find_goal();
-		System.out.println(it.isGoal());
+		System.out.println("goal??? "+it.isGoal()+" wall??? "+it.isWall());
 		//System.out.println(it.isBall());
 		System.out.println("total = "+it.goal_area);
 		System.out.println("black = "+it.black_area);

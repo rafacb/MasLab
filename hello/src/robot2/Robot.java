@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import maslab.camera.Camera;
 import maslab.telemetry.channel.ImageChannel;
+import orc.Gyro;
 import orc.IRRangeFinder;
 import orc.Motor;
 import orc.Orc;
@@ -13,7 +14,7 @@ import orc.Servo;
 public class Robot {
 
 	//Variables to store motors.
-	public static Motor[] motors = new Motor[3];
+	public static Motor[] motors = new Motor[2];
 	
 	//orc
 	static Orc orco = Orc.makeOrc();
@@ -26,8 +27,10 @@ public class Robot {
 	//Motors
 	static Motor motorR = new Motor(orco, 0, false);
 	static Motor motorL = new Motor(orco, 1, true);
-	static Motor drib = new Motor(orco, 2, true);
 	static Servo servo = Servo.makeMPIMX400(orco, 0);
+	
+	//Gyro
+	Gyro gyro = new Gyro(orco, 4);
 	
 	//Camera
 	public Camera cam;
@@ -41,7 +44,10 @@ public class Robot {
 	//Can you see something good?
 	boolean isBall;
 	boolean isGoal;
+	boolean isWall;
 	
+	//Has balls?
+	boolean hasBall = false;
 	
 	/**
 	 * Constructor of a robot.
@@ -51,7 +57,6 @@ public class Robot {
 	public Robot() throws IOException{
 		motors[0] = motorR;
 		motors[1] = motorL;
-		motors[2] = drib;
 		cam = Camera.makeCamera();
 	}
 	
@@ -103,30 +108,29 @@ public class Robot {
 		goal_pos[0] = it.x_goal;
 		goal_pos[1] = it.y_goal;
 		
-		ImageChannel ic = new ImageChannel("Foto");
+		ImageChannel ic = new ImageChannel("Pato Cam");
 		ic.publish(it.im);
 		
 		isBall = it.isBall();
 		isGoal = it.isGoal();
+		isWall = it.isWall();
 	}
 	
 	public void turn(boolean right){
-		double[] speeds = new double[3];
+		double[] speeds = new double[2];
 		if (right){
 			speeds[0] = 1;
 			speeds[1] = -1;
-			speeds[2] = 1;
 		}else{
 			speeds[0] = -1;
 			speeds[1] = 1;
-			speeds[2] = 1;
 		}
 		
 		move(speeds);
 	}
 	
 	public void randomWalk(){
-		double[] speeds = new double[3];
+		double[] speeds = new double[2];
 		double[] irs = input();
 		//System.out.println("irsD = "+irs[0]);
 		//System.out.println("irsIzq = "+irs[1]);
@@ -137,7 +141,6 @@ public class Robot {
 				|| (irs[0] > .3 && irs [1] == 0.0)){
 			speeds[0] = 0.7;
 			speeds[1] = 0.7;
-			speeds[2] = 1;
 			//System.out.println("Pa lante");
 			
 			move(speeds);
@@ -147,7 +150,6 @@ public class Robot {
 				&& (irs[0] != 0) && (irs[1] != 0)){
 			speeds[0] = -0.7;
 			speeds[1] = -0.7;
-			speeds[2] = 1;
 			//System.out.println("Back down!");
 			
 			move(speeds);
@@ -157,7 +159,6 @@ public class Robot {
 				&& (irs[0] == 0 || irs[0] > .3)){
 			speeds[0] = -0.7;
 			speeds[1] = 0.7;
-			speeds[2] = 1;
 			//System.out.println("Pa la izq");
 			
 			move(speeds);
@@ -167,26 +168,35 @@ public class Robot {
 				&& (irs[1] == 0 || irs[1] > .3)){
 			speeds[0] = 0.7;
 			speeds[1] = -0.7;
-			speeds[2] = 1;
 			//System.out.println("Pa la derecha");
 			
 			move(speeds);
 		}
-		/**if (irs[0] > .3 || irs[0] == 0.0){
-			speeds[0] = 0.5;
-			speeds[1] = 0.5;
-			speeds[2] = 1;
-			System.out.println("Pa lante");
-			
-			move(speeds);
-		}else if (irs[0] <= .3){
-			speeds[0] = 0.5;
-			speeds[1] = -0.5;
-			speeds[2] = 1;
-			System.out.println("Pa la izq");
-			
-			move(speeds);
-		}**/
+	}
+	
+	public void moveTo(int[] pos, boolean ball){
+		double irs[] = input();
+		if (pos[0] > width/2 + 100) {
+			if (irs[0] < .3){
+				move(new double[] {.4,.3});
+			}else{
+				move(new double[] {-.4,.4});
+			}
+		} else if (pos[0] < width/2 - 100) {
+			if (irs[0] < .3){
+				move(new double[] {.3,.4});
+			}else{
+				move(new double[] {.4,-.4});
+			}
+		} 
+		else {
+			System.out.println("Cetered!!");
+			// System.out.println("Pa lante como el elefante...");
+			move(new double[] {.7,.7});
+			if (ball){
+				hasBall = true;
+			}
+		}
 	}
 
 	

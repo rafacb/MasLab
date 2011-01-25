@@ -15,6 +15,9 @@ public class DoServoMovement {
 			while (true){
 			
 			robot.moveServo(false);
+			
+			System.out.println(robot.gyro.getTheta());
+			
 			}
 			//long startTime = System.currentTimeMillis();
 			//long maxDurationInMilliseconds =3*60*1000;
