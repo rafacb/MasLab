@@ -105,16 +105,16 @@ public class Robot {
 		goal_pos[0] = it.x_goal;
 		goal_pos[1] = it.y_goal;
 		
-		if (it.isWall()){
-			wall_pos = it.pos;
-		}
+		//if (it.isWall()){
+			//wall_pos = it.pos;
+		//}
 		
 		ImageChannel ic = new ImageChannel("Pato Cam");
 		ic.publish(it.im);
 		
 		isBall = it.isBall();
 		isGoal = it.isGoal();
-		isWall = it.isWall();
+		//isWall = it.isWall();
 	}
 	
 	public void turn(boolean right){
