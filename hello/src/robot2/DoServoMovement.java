@@ -27,12 +27,6 @@ public class DoServoMovement {
 			//System.out.println(robot.gyro.getTheta());
 			
 			}
-			//long startTime = System.currentTimeMillis();
-			//long maxDurationInMilliseconds =3*60*1000;
-	
-			
-			//while (System.currentTimeMillis()<startTime+maxDurationInMilliseconds){
-				//
 			
 	}
 	

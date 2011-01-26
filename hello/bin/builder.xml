@@ -1,0 +1,28 @@
+<project name="robot" default="build" basedir=".">
+	<!-- CHANGE THESE THREE VALUES FOR AUTOMATIC UPLOAD 
+	<property name="robotIP" value="18.62.31.60"/>-->
+	<property name="destDir" value="/home/maslab-2011-7/workspace/MasLab"/>
+	<!-- <property name="username" value="maslab-2011-7"/> -->
+	<property name="binDir" value="bin"/>
+	<property name="srcDir" value="src"/>
+	
+	<target name="build">
+		<!-- This does deep dependency checking on class files -->
+		<depend srcdir="${srcDir}" destdir="${binDir}" cache="depcache" closure="true"/>
+		<!-- This compiles all the java -->
+		<javac srcdir="${srcDir}" destdir="${binDir}" includes="**/*.java" debug="true" classpath="lib/maslab.jar:lib/orc.jar"/>
+	</target>
+	<!-- Clean everything -->
+	<target name="clean">
+		<delete>
+			<fileset dir="${binDir}" includes="**/*.class"/>
+			<fileset dir="${binDir}" includes="**/*~" defaultexcludes="no"/>
+		</delete>
+	</target>
+	<!-- Upload files to robot 
+	<target name="upload" depends="build">
+		<exec executable="rsync">
+			<arg line="-e ssh -avr ${binDir} ${username}@${robotIP}:${destDir}"/>
+		</exec>
+	</target>-->
+</project>
