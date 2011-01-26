@@ -10,12 +10,22 @@ public class MoveWithCam {
 
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
-		Robot robot = new Robot();
+		Robot robot = new Robot("red");
+		double[] start = robot.input();
+		while (true){
+			System.out.println("Start = "+start[0]);
+			if (start[0] > .5 || start[0] == 0.0){
+				start = robot.input();
+				System.out.println("Start = "+start[0]);
+				Thread.sleep(100);
+			}else{
+				System.out.println("Start = "+start[0]);
+				System.out.println("here!!");
+				break;
+			}
+		}
 		long startTime = System.currentTimeMillis();
 		long maxDurationInMilliseconds =3*60*1000;
-		while (robot.input()[0] > .2){
-			//Don't move!
-		}
 		while (System.currentTimeMillis()<startTime+maxDurationInMilliseconds){
 			
 			robot.image();
@@ -36,21 +46,23 @@ public class MoveWithCam {
 					// System.out.println("Pa lante como el elefante...");
 					robot.move(new double[] {.7,.7,1});
 				}**/
-				robot.moveTo(robot.ball_pos, true);
-				robot.servo.setPosition(Math.PI/6);
+				//robot.moveTo(robot.ball_pos, true);
+				//robot.servo.setPosition(Math.PI/6);
 				
 				
 			} else if (robot.hasBall){
 				if (robot.isWall){
 					canal.publish("Veo la pared!\n");
-					robot.moveTo(robot.wall_pos, false);
+					//robot.moveTo(robot.wall_pos, false);
 				}
 			}else {
 				canal.publish("No Veo Nada!! Random Walk!!\n");
 				System.out.println("No veo!!");
-				robot.randomWalk();
+				//robot.randomWalk();
 			}
 		}
+		robot.motorL.idle();
+		robot.motorR.idle();
 	}
 
 }

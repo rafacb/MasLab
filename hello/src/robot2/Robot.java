@@ -50,15 +50,19 @@ public class Robot {
 	//Has balls?
 	boolean hasBall = false;
 	
+	//Ball Color
+	String color;
+	
 	/**
 	 * Constructor of a robot.
 	 * Initiates the motors and gives them speed.
 	 * @throws IOException 
 	 */
-	public Robot() throws IOException{
+	public Robot(String color) throws IOException{
 		motors[0] = motorR;
 		motors[1] = motorL;
 		cam = Camera.makeCamera();
+		this.color = color;
 	}
 	
 	/**
@@ -92,8 +96,8 @@ public class Robot {
 		it = new Image2(pic);
 		// Do the work
 		//it.find_red_blob();
-		it.find_objects("green");
-		it.renderStatistics("green");
+		it.find_objects(color);
+		it.renderStatistics(color);
 		height = it.height;
 		width = it.width;
 		

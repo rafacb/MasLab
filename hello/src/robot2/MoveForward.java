@@ -10,7 +10,7 @@ public class MoveForward {
 	
 	public static void main(String[] args) throws IOException{
 		
-		Robot robot = new Robot();
+		Robot robot = new Robot("green");
 		
 		long startTime = System.currentTimeMillis();
 		long maxDurationInMilliseconds =3*60*1000;
