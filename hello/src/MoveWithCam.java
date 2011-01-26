@@ -56,9 +56,9 @@ public class MoveWithCam {
 				
 				} else if (robot.isGoal){
 				canal.publish("Veo Goal!!\n");
-				for (int i = 0; i < 5; i++){
+				while (robot.input()[0] > .5){
 					robot.move(new double[] {.7,.7,-1});
-				}for (int i = 0; i < 5; i++){
+				}for (int i = 0; i < 10; i++){
 					robot.move(new double[] {-1,-1,-1});
 				}for (int i = 0; i < 3; i++){
 					robot.randomWalk();
