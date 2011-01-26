@@ -25,8 +25,8 @@ public class Robot {
 	
 	
 	//Motors
-	static Motor motorR = new Motor(orco, 1, true);
-	static Motor motorL = new Motor(orco, 0, true);
+	static Motor motorR = new Motor(orco, 2, true);
+	static Motor motorL = new Motor(orco, 1, true);
 	static Servo servo = Servo.makeMPIMX400(orco, 0);
 	
 	//Gyro
@@ -69,6 +69,10 @@ public class Robot {
 	 * Move with speed "speeds".
 	 */
 	public void move(double[] speeds){
+		if (speeds[0] == 1000){
+			motorL.idle();
+			motorR.idle();
+		}
 		Motor.setMultiplePWM(motors, speeds);
 	}
 	
