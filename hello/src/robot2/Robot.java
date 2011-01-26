@@ -20,8 +20,8 @@ public class Robot {
 	static Orc orco = Orc.makeOrc();
 	
 	//Analog input
-	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 0);
-	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 7);
+	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 7);
+	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 0);
 	
 	
 	//Motors
