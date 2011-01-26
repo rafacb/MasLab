@@ -20,13 +20,13 @@ public class Robot {
 	static Orc orco = Orc.makeOrc();
 	
 	//Analog input
-	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 7);
-	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 0);
+	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 0);
+	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 7);
 	
 	
 	//Motors
-	static Motor motorR = new Motor(orco, 0, false);
-	static Motor motorL = new Motor(orco, 1, true);
+	static Motor motorR = new Motor(orco, 1, false);
+	static Motor motorL = new Motor(orco, 0, true);
 	static Servo servo = Servo.makeMPIMX400(orco, 0);
 	
 	//Gyro
