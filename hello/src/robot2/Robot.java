@@ -140,8 +140,8 @@ public class Robot {
 				|| (irs[0] == 0.0 && irs[1] == 0.0)
 				|| (irs[0] == 0.0 && irs[1] > .3)
 				|| (irs[0] > .3 && irs [1] == 0.0)){
-			speeds[0] = 0.7;
-			speeds[1] = 0.7;
+			speeds[0] = 0.4;
+			speeds[1] = 0.4;
 			//System.out.println("Pa lante");
 			servo.setPosition(Math.PI*.4);
 			
@@ -150,8 +150,8 @@ public class Robot {
 		//Atras
 		else if ((irs[0] < .3 && irs[1] < .3) 
 				&& (irs[0] != 0) && (irs[1] != 0)){
-			speeds[0] = -0.7;
-			speeds[1] = -0.7;
+			speeds[0] = -0.4;
+			speeds[1] = -0.4;
 			//System.out.println("Back down!");
 			servo.setPosition(Math.PI*.4);
 			
@@ -160,8 +160,8 @@ public class Robot {
 		//Derecha
 		else if ((irs[1] < .3 && irs[1] != 0.0) 
 				&& (irs[0] == 0 || irs[0] > .3)){
-			speeds[0] = -0.7;
-			speeds[1] = 0.7;
+			speeds[0] = -0.4;
+			speeds[1] = 0.4;
 			//System.out.println("Pa la izq");
 			servo.setPosition(Math.PI*.4);
 			
@@ -170,8 +170,8 @@ public class Robot {
 		//Izq
 		else if ((irs[0] < .3 && irs[0] != 0.0) 
 				&& (irs[1] == 0 || irs[1] > .3)){
-			speeds[0] = 0.7;
-			speeds[1] = -0.7;
+			speeds[0] = 0.4;
+			speeds[1] = -0.4;
 			//System.out.println("Pa la derecha");
 			servo.setPosition(Math.PI*.4);
 			
@@ -198,7 +198,7 @@ public class Robot {
 			System.out.println("Cetered!!");
 			// System.out.println("Pa lante como el elefante...");
 			while(isBall){
-				move(new double[] {.7,.7});
+				move(new double[] {.3,.3});
 				servo.setPosition(Math.PI*.4);
 				image();
 			}servo.setPosition(Math.PI/6);
