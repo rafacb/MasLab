@@ -10,22 +10,22 @@ public class DoServoMovement {
 	
 	public static void main(String[] args) throws IOException, InterruptedException{
 			
-			Robot robot = new Robot();
+			Robot robot = new Robot("red");
 			
 			while (true){
 			
 				for (int i = 0; i < 5000; i++){
-					robot.moveServo(Math.PI/6);
+					robot.moveServo(-Math.PI/8);
 					System.out.println("Abajo!");
 				}for (int i = 0; i < 5000; i++){
 					robot.moveServo(Math.PI*.4);
 					System.out.println("Arriba!");
 				}for (int i = 0; i < 5000; i++){
-					robot.moveServo(Math.PI/6);
-					System.out.println("Abajo!");
+					robot.moveServo(Math.PI*.75);
+					System.out.println("Mas Arriba!");
 				}for (int i = 0; i < 5000; i++){
-					robot.moveServo(Math.PI*.4);
-					System.out.println("Arriba!");
+					robot.moveServo(1000);
+					System.out.println("Muere!!");
 				}
 			
 			}

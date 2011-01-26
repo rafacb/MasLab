@@ -73,7 +73,11 @@ public class Robot {
 	}
 	
 	public void moveServo(double angle){
-		servo.setPosition(angle);
+		if (angle == 1000){
+			servo.idle();
+		}else{
+			servo.setPosition(angle);
+		}
 	}
 	
 	/**
