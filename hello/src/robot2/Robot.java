@@ -197,10 +197,11 @@ public class Robot {
 		else {
 			System.out.println("Cetered!!");
 			// System.out.println("Pa lante como el elefante...");
-			move(new double[] {.7,.7});
-			if (ball){
-				hasBall = true;
-			}servo.setPosition(Math.PI*.4);
+			while(isBall){
+				move(new double[] {.7,.7});
+				servo.setPosition(Math.PI*.4);
+				image();
+			}servo.setPosition(Math.PI/6);
 		}
 	}
 
