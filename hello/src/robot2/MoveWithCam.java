@@ -13,6 +13,9 @@ public class MoveWithCam {
 		Robot robot = new Robot();
 		long startTime = System.currentTimeMillis();
 		long maxDurationInMilliseconds =3*60*1000;
+		while (robot.input()[0] > .2){
+			//Don't move!
+		}
 		while (System.currentTimeMillis()<startTime+maxDurationInMilliseconds){
 			
 			robot.image();
