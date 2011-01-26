@@ -14,17 +14,19 @@ public class DoServoMovement {
 			
 			while (true){
 			
-				robot.moveServo(Math.PI*.4);
-				
-				
-				Thread.sleep(3000);
-				
-				System.out.println("NoW!");
-				robot.moveServo(Math.PI*.18);
-				
-				Thread.sleep(3000);
-			
-			//System.out.println(robot.gyro.getTheta());
+				for (int i = 0; i < 5000; i++){
+					robot.moveServo(Math.PI/6);
+					System.out.println("Abajo!");
+				}for (int i = 0; i < 5000; i++){
+					robot.moveServo(Math.PI*.4);
+					System.out.println("Arriba!");
+				}for (int i = 0; i < 5000; i++){
+					robot.moveServo(Math.PI/6);
+					System.out.println("Abajo!");
+				}for (int i = 0; i < 5000; i++){
+					robot.moveServo(Math.PI*.4);
+					System.out.println("Arriba!");
+				}
 			
 			}
 			
