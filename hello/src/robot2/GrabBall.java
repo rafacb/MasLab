@@ -32,7 +32,9 @@ public class GrabBall {
 						// System.out.println("Pa lante como el elefante...");
 						robot.move(new double[] {.7,.65});
 					}
-				}//After you can't see it, you have it so move the servo
+				}
+				Thread.sleep(80);
+				//After you can't see it, you have it so move the servo
 				for (int i = 0; i < 5000; i++){
 					robot.moveServo(-Math.PI/8);
 					System.out.println("Abajo!");
