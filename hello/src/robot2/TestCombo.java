@@ -31,7 +31,7 @@ public class TestCombo {
 				else {
 					System.out.println("Cetered!!");
 					// System.out.println("Pa lante como el elefante...");
-					for (int i =0; i<50; i++){
+					for (int i =0; i<1000; i++){
 					    robot.move(new double[] {.8,.75});
 					}
 					Thread.sleep(80);
@@ -44,9 +44,6 @@ public class TestCombo {
 				for (int i = 0; i < 5000; i++){
 					robot.moveServo(-Math.PI/8);
 					System.out.println("Abajo!");
-				}for (int i = 0; i < 5000; i++){
-					robot.moveServo(Math.PI*.75);
-					System.out.println("Arriba!");
 				}for (int i = 0; i < 5000; i++){
 					robot.moveServo(Math.PI*.4);
 					System.out.println("Normal!");
