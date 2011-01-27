@@ -19,7 +19,7 @@ public class TestWall {
 				}
 				Thread.sleep(80);
 				while (robot.rearBump.getVoltage() > .2){
-					robot.move(new double[] {.5, .5});
+					robot.move(new double[] {-.5, -.5});
 				}
 				//Servo shit!
 				for (int i = 0; i < 4000; i++){
