@@ -35,7 +35,7 @@ public class GrabBall {
 					else {
 						System.out.println("Cetered!!");
 						// System.out.println("Pa lante como el elefante...");
-						robot.move(new double[] {.7,.65});
+						robot.move(new double[] {.8,.75});
 						Thread.sleep(80);
 					}robot.image2();
 				}
@@ -52,6 +52,7 @@ public class GrabBall {
 						robot.moveServo(Math.PI*.4);
 						System.out.println("Arriba!");
 					}robot.moveServo(1000);	
+					sawBall = false;
 				}
 			}
 		}
