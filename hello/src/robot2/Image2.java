@@ -591,10 +591,7 @@ public class Image2 {
 	}
 	
 	public boolean isWall(){
-		if (blue_area == 0){
-			return false;
-		}
-		return (yellow_area/blue_area >= .6);
+		return yellow_area > 100 && !isGoal();
 	}
 	
 	/**

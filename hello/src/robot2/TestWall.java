@@ -10,6 +10,7 @@ public class TestWall {
 	    while (true){
 	    	robot.image2();
 	    	Thread.sleep(100);
+	    	System.out.println(robot.isWall);
 	    	if (robot.isWall){
 				while (robot.input()[2] > .2){
 					robot.move(new double[] {.5,.5});
