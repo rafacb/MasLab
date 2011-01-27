@@ -25,21 +25,24 @@ public class GrabBall {
 					// turn right
 					// Do the opposite if it's seen on the left side.
 
-					if (robot.ball_pos[0] > width + 50) {
-						robot.move(new double[] {-.3,.25});
+					if (robot.ball_pos[0] > width + 55) {
+						robot.move(new double[] {.3,.35});
 						Thread.sleep(80);
-					} else if (robot.ball_pos[0] < width - 50) {
-						robot.move(new double[] {.3,-.25});
+					} else if (robot.ball_pos[0] < width - 55) {
+						robot.move(new double[] {.35,.3});
 						Thread.sleep(80);
 					} 
 					else {
 						System.out.println("Cetered!!");
 						// System.out.println("Pa lante como el elefante...");
-						robot.move(new double[] {.4,.35});
+						for (int i =0; i<50; i++){
+						    robot.move(new double[] {.8,.75});
+						}
 						Thread.sleep(80);
 					}robot.image2();
+					Thread.sleep(80);
 				}
-				if (sawBall){
+				if (sawBall && !robot.isBall){
 					Thread.sleep(80);
 					//After you can't see it, you have it so move the servo
 					for (int i = 0; i < 5000; i++){
@@ -47,10 +50,10 @@ public class GrabBall {
 						System.out.println("Abajo!");
 					}for (int i = 0; i < 5000; i++){
 						robot.moveServo(Math.PI*.75);
-						System.out.println("Abajo!");
+						System.out.println("Arriba!");
 					}for (int i = 0; i < 5000; i++){
 						robot.moveServo(Math.PI*.4);
-						System.out.println("Arriba!");
+						System.out.println("Normal!");
 					}robot.moveServo(1000);	
 					sawBall = false;
 				}
