@@ -47,7 +47,7 @@ public class TestCombo {
 				}for (int i = 0; i < 100; i++){
 					robot.moveServo(Math.PI*.4);
 					System.out.println("Normal!");
-				}robot.moveServo(500);	
+				}robot.moveServo(1000);	
 				sawBall = false;
 			}break;
 		}
@@ -63,7 +63,7 @@ public class TestCombo {
 			}
 			Thread.sleep(80);
 			robot.move(new double[] {1000,0});
-			while (robot.input()[3] > .16 && robot.input()[3] != 0.0 && robot.rearBump.getVoltage() > .2){
+			while ((robot.input()[3] > .16 || robot.input()[3] != 0.0) && robot.rearBump.getVoltage() > .2){
 			    System.out.println(robot.input()[3]);
 			    robot.move(new double[] {-.7, -.7});
 			}System.out.println(robot.input()[3]);

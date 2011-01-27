@@ -49,9 +49,6 @@ public class GrabBall {
 						robot.moveServo(-Math.PI/8);
 						System.out.println("Abajo!");
 					}for (int i = 0; i < 5000; i++){
-						robot.moveServo(Math.PI*.75);
-						System.out.println("Arriba!");
-					}for (int i = 0; i < 5000; i++){
 						robot.moveServo(Math.PI*.4);
 						System.out.println("Normal!");
 					}robot.moveServo(1000);	
