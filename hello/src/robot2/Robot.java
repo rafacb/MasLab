@@ -27,8 +27,8 @@ public class Robot {
 	
 	
 	//Motors
-	static Motor motorR = new Motor(orco, 2, true);
-	static Motor motorL = new Motor(orco, 1, false);
+	static Motor motorR = new Motor(orco, 2, false);
+	static Motor motorL = new Motor(orco, 1, true);
 	static Servo servo = Servo.makeMPIMX400(orco, 0);
 	
 	//Gyro
@@ -153,9 +153,13 @@ public class Robot {
 		//Alante
 		if (irs[2] < .3){
 			if (new Random().nextInt(1) == 1){
-				
+			    speeds[0] = 0.7;
+			    speeds[1] = -0.65;
+			    move(speeds);
 			}else{
-				
+			    speeds[0] = -0.7;
+			    speeds[1] = 0.65;
+			    move(speeds);
 			}
 		}else if ((irs[0] >= .3 && irs[1] >= .3) 
 				|| (irs[0] == 0.0 && irs[1] == 0.0)
@@ -225,6 +229,4 @@ public class Robot {
 			}servo.setPosition(Math.PI/6);
 		}
 	}
-
-	
 }

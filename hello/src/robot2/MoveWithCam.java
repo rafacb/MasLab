@@ -46,8 +46,9 @@ public class MoveWithCam {
 					// System.out.println("Pa lante como el elefante...");
 					robot.move(new double[] {.7,.7,1});
 				}**/
-				//robot.moveTo(robot.ball_pos, true);
-				//robot.servo.setPosition(Math.PI/6);
+				robot.moveTo(robot.ball_pos, true);
+				robot.servo.setPosition(Math.PI/6);
+				robot.servo.setPosition(Math.PI*.4);
 				
 				
 			} else if (robot.hasBall){
@@ -58,7 +59,7 @@ public class MoveWithCam {
 			}else {
 				canal.publish("No Veo Nada!! Random Walk!!\n");
 				System.out.println("No veo!!");
-				//robot.randomWalk();
+				robot.randomWalk();
 			}
 		}
 		robot.motorL.idle();
