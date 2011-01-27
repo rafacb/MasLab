@@ -257,7 +257,7 @@ public class Robot {
 		if (pos[0] > width + 50) {
 			move(new double[] {-.4,.35});
 			Thread.sleep(100);
-		} else if (ball_pos[0] < width - 50) {
+		} else if (pos[0] < width - 50) {
 			move(new double[] {.4,-.35});
 			Thread.sleep(100);
 		} 
