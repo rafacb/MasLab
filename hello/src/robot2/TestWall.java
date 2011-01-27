@@ -19,19 +19,20 @@ public class TestWall {
 				    robot.move(new double[] {speed,-speed});
 				}
 				Thread.sleep(80);
-				while (robot.input()[3] > .1){
-					robot.move(new double[] {-.7, -.7});
-				}
+				robot.move(new double[] {1000,0});
+				while (robot.input()[3] > .11195 && robot.rearBump.getVoltage() > .2){
+				    System.out.println(robot.input()[3]);
+				    robot.move(new double[] {-.7, -.7});
+				}System.out.println(robot.input()[3]);
 				//Servo shit!
 				for (int i = 0; i < 4000; i++){
 					robot.moveServo(Math.PI*.75);
-					System.out.println("Mas Arriba!");
+					
 				}for (int i = 0; i < 1000; i++){
 					robot.moveServo(Math.PI*.4);
-					System.out.println("Arriba!");
+				       
 				}for (int i = 0; i < 1000; i++){
-					robot.moveServo(1000);
-					System.out.println("Muere!!");
+				    robot.moveServo(1000);
 				}
 			}
 	    }
