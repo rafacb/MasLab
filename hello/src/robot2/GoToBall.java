@@ -11,6 +11,7 @@ public class GoToBall {
 		while (true){
 			robot.image2();
 			System.out.println("sensor delantero = "+robot.input()[2]);
+			System.out.println(robot.isBall);
 			
 			if (robot.isBall) {
 				robot.canal.publish("Veo Bola!!\n");

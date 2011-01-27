@@ -117,8 +117,6 @@ public class Robot {
 		height = it.height;
 		width = it.width;
 		
-		
-		
 		//System.out.println("x = "+ it.pos[0] + " y = "+it.pos[1]);
 		//Store position.
 		ball_pos = it.pos;
@@ -151,8 +149,6 @@ public class Robot {
 		it.renderStatistics(color);
 		height = it.height;
 		width = it.width;
-		
-		
 		
 		//System.out.println("x = "+ it.pos[0] + " y = "+it.pos[1]);
 		//Store position.
