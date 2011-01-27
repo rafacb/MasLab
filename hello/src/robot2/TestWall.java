@@ -14,12 +14,13 @@ public class TestWall {
 	    	if (robot.isWall){
 				while (robot.input()[2] > .2){
 					robot.move(new double[] {.5,.5});
-				}for (int i=0; i<2050;i++){
-				    robot.move(new double[] {.5,-.5});
+				}for (int i=0; i<Integer.valueOf(args[0]);i++){
+				    double speed = Double.valueOf(args[1]);
+				    robot.move(new double[] {speed,-speed});
 				}
 				Thread.sleep(80);
 				while (robot.rearBump.getVoltage() > .2){
-					robot.move(new double[] {-.5, -.5});
+					robot.move(new double[] {-.7, -.7});
 				}
 				//Servo shit!
 				for (int i = 0; i < 4000; i++){
