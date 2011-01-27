@@ -3,8 +3,8 @@
 	<property name="robotIP" value="18.62.31.60"/>-->
 	<property name="destDir" value="/home/maslab-2011-7/workspace/MasLab"/>
 	<!-- <property name="username" value="maslab-2011-7"/> -->
-	<property name="binDir" value="bin"/>
-	<property name="srcDir" value="src"/>
+	<property name="binDir" value="bin/robot2"/>
+	<property name="srcDir" value="src/robot2"/>
 	
 	<target name="build">
 		<!-- This does deep dependency checking on class files -->
