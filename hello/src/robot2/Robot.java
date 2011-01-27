@@ -251,16 +251,20 @@ public class Robot {
 		if (pos[0] > width/2 + 50) {
 			canal.publish("Bola a la derecha!");
 			if (irs[0] > .3){
-				move(new double[] {-.4,.35});
-			}else{
 				move(new double[] {.4,-.35});
+				Thread.sleep(80);
+			}else{
+				move(new double[] {-.4,.35});
+				Thread.sleep(80);
 			}//servo.setPosition(Math.PI*.4);
 		} else if (pos[0] < width/2 - 500) {
 			canal.publish("Bola a la izquierda!");
 			if (irs[1] > .3){
-				move(new double[] {.4,-.35});
+				move(new double[] {-.4,.35});
+				Thread.sleep(80);
 			}else{
-				move(new double[] {-.4,.45});
+				move(new double[] {.4,-.45});
+				Thread.sleep(80);
 			}//servo.setPosition(Math.PI*.4);
 		} 
 		else {
@@ -269,10 +273,12 @@ public class Robot {
 			while(isBall){
 				if (irs[2] > .3){
 					move(new double[] {.4,.35});
+					Thread.sleep(80);
 					//servo.setPosition(Math.PI*.4);
 					image2();
 				}else{
 					move(new double[] {.4,-.35});
+					Thread.sleep(80);
 					break;
 				}
 			}servo.setPosition(Math.PI/6);
