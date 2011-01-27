@@ -3,6 +3,8 @@ package robot2;
 import java.io.IOException;
 
 public class GrabBall {
+	
+		private static boolean sawBall = false;
 		
 		public static void main(String[] args) throws IOException,
 		InterruptedException {
@@ -15,7 +17,8 @@ public class GrabBall {
 				System.out.println("w = "+robot.width);
 				System.out.println("position = "+robot.ball_pos[0]);
 				
-				if (robot.isBall) {
+				while (robot.isBall) {
+					sawBall = true;
 					robot.canal.publish("Veo Bola!!\n");
 					int width = robot.width / 2;
 					// If the ball is seen in the right side of the picture, then
@@ -33,18 +36,20 @@ public class GrabBall {
 						robot.move(new double[] {.7,.65});
 					}
 				}
-				Thread.sleep(80);
-				//After you can't see it, you have it so move the servo
-				for (int i = 0; i < 5000; i++){
-					robot.moveServo(-Math.PI/8);
-					System.out.println("Abajo!");
-				}for (int i = 0; i < 5000; i++){
-					robot.moveServo(Math.PI*.75);
-					System.out.println("Abajo!");
-				}for (int i = 0; i < 5000; i++){
-					robot.moveServo(Math.PI*.4);
-					System.out.println("Arriba!");
-				}robot.moveServo(1000);
+				if (sawBall){
+					Thread.sleep(80);
+					//After you can't see it, you have it so move the servo
+					for (int i = 0; i < 5000; i++){
+						robot.moveServo(-Math.PI/8);
+						System.out.println("Abajo!");
+					}for (int i = 0; i < 5000; i++){
+						robot.moveServo(Math.PI*.75);
+						System.out.println("Abajo!");
+					}for (int i = 0; i < 5000; i++){
+						robot.moveServo(Math.PI*.4);
+						System.out.println("Arriba!");
+					}robot.moveServo(1000);	
+				}
 			}
 		}
 
