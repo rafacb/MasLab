@@ -120,12 +120,10 @@ public class TestCombo {
 				System.out.println("Tengo BOLAS!");
 				robot.hasBall = true;
 				
-			} else if (robot.hasBall){
-				if (robot.isWall){
-					robot.canal.publish("Veo la pared!\n");
-					wall(robot);
-					robot.hasBall = false;
-				}
+			} else if (robot.hasBall && robot.isWall){
+				robot.canal.publish("Veo la pared!\n");
+				wall(robot);
+				robot.hasBall = false;
 			}else {
 				robot.canal.publish("No Veo Nada!! Random Walk!!\n");
 				System.out.println("No veo!!");
