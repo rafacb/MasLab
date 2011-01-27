@@ -11,6 +11,7 @@ public class TestVision {
 		
 		while (true){
 			robot.image2();
+			System.out.println("sensor delantero = "+robot.input()[2]);
 		}
 		
 	}
