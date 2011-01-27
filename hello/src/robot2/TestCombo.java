@@ -87,6 +87,15 @@ public class TestCombo {
 		
 		Robot robot = new Robot("red");
 		
+		while (true){
+			if (robot.rearBump.getVoltage() > .2){
+				Thread.sleep(100);
+			}else{
+				System.out.println("Start!!");
+				break;
+			}
+		}
+		
 		long startTime = System.currentTimeMillis();
 		long maxDurationInMilliseconds =3*60*1000;
 		while (System.currentTimeMillis()<startTime+maxDurationInMilliseconds){
