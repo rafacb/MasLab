@@ -35,7 +35,7 @@ public class GrabBall {
 					else {
 						System.out.println("Cetered!!");
 						// System.out.println("Pa lante como el elefante...");
-						robot.move(new double[] {.3,.25});
+						robot.move(new double[] {.4,.35});
 						Thread.sleep(80);
 					}robot.image2();
 				}
