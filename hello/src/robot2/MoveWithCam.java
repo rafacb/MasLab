@@ -1,12 +1,10 @@
 package robot2;
 import java.io.IOException;
 
-import maslab.telemetry.channel.TextChannel;
-
 public class MoveWithCam {
 	// Variables to store speeds of the motors
 	static double[] speeds = new double[2];
-	static TextChannel canal = new TextChannel("The Mighty Patos!");
+	
 
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
@@ -30,8 +28,8 @@ public class MoveWithCam {
 			
 			robot.image();
 			if (robot.isBall) {
-				canal.publish("Veo Bola!!\n");
-				int width = robot.width / 2;
+				robot.canal.publish("Veo Bola!!\n");
+				//int width = robot.width / 2;
 				// If the ball is seen in the right side of the picture, then
 				// turn right
 				// Do the opposite if it's seen on the left side.
@@ -53,11 +51,11 @@ public class MoveWithCam {
 				
 			} else if (robot.hasBall){
 				if (robot.isWall){
-					canal.publish("Veo la pared!\n");
+					robot.canal.publish("Veo la pared!\n");
 					//robot.moveTo(robot.wall_pos, false);
 				}
 			}else {
-				canal.publish("No Veo Nada!! Random Walk!!\n");
+				robot.canal.publish("No Veo Nada!! Random Walk!!\n");
 				System.out.println("No veo!!");
 				robot.randomWalk();
 			}
