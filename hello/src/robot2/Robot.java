@@ -282,7 +282,7 @@ public class Robot {
 					break;
 				}
 			}
-			//Servo
+			//After you can't see it, you have it so move the servo
 			for (int i = 0; i < 5000; i++){
 				moveServo(-Math.PI/8);
 				System.out.println("Abajo!");
