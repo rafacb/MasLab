@@ -587,7 +587,7 @@ public class Image2 {
 	 * @return
 	 */
 	public boolean isGoal(){
-		return ((yellow_area > black_area +1000) && !isYellow(im.getRGB(x_goal, y_goal)));
+		return ((yellow_area > black_area +1000) && black_area > 100 && !isYellow(im.getRGB(x_goal, y_goal)));
 	}
 	
 	public boolean isWall(){
