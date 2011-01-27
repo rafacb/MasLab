@@ -169,8 +169,8 @@ public class Robot {
 		//ic.publish(pic);
 		Thread.sleep(120);
 		isBall = it.isBall();
-		isGoal = it.isGoal();
-		isWall = it.isWall();
+		//isGoal = it.isGoal();
+		//isWall = it.isWall();
 	}
 	
 	public void turn(boolean right){
