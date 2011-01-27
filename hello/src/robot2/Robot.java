@@ -162,8 +162,6 @@ public class Robot {
 		goal_pos[0] = it.x_goal;
 		goal_pos[1] = it.y_goal;
 		
-		System.out.println("isgoal? = "+it.isGoal()+" yellowArea = "+it.yellow_area);
-		
 		if (it.isWall()){
 			wall_pos = it.pos;
 		}
