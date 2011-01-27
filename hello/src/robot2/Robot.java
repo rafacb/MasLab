@@ -165,12 +165,12 @@ public class Robot {
 		//}
 		
 		ImageChannel ic = new ImageChannel("Pato Cam");
-		//ic.publish(it.im);
-		ic.publish(pic);
+		ic.publish(it.im);
+		//ic.publish(pic);
 		Thread.sleep(120);
-		//isBall = it.isBall();
-		//isGoal = it.isGoal();
-		//isWall = it.isWall();
+		isBall = it.isBall();
+		isGoal = it.isGoal();
+		isWall = it.isWall();
 	}
 	
 	public void turn(boolean right){
@@ -250,23 +250,25 @@ public class Robot {
 		}
 	}
 	
-	public void moveTo(int[] pos, boolean ball) throws InterruptedException{
+	public void moveTo(int[] pos) throws InterruptedException{
 		double irs[] = input();
 		if (pos[0] > width/2 + 100) {
+			canal.publish("Bola a la derecha!");
 			if (irs[0] > .3){
-				move(new double[] {.5,.45});
-			}else{
 				move(new double[] {-.5,.45});
-			}//servo.setPosition(Math.PI*.4);
-		} else if (pos[0] < width/2 - 100) {
-			if (irs[1] > .3){
-				move(new double[] {.5,.45});
 			}else{
 				move(new double[] {.5,-.45});
 			}//servo.setPosition(Math.PI*.4);
+		} else if (pos[0] < width/2 - 100) {
+			canal.publish("Bola a la izquierda!");
+			if (irs[1] > .3){
+				move(new double[] {.5,-.45});
+			}else{
+				move(new double[] {-.5,.45});
+			}//servo.setPosition(Math.PI*.4);
 		} 
 		else {
-			System.out.println("Cetered!!");
+			canal.publish("Bola en el centro!");
 			// System.out.println("Pa lante como el elefante...");
 			while(isBall){
 				if (irs[2] > .3){

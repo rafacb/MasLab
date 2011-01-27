@@ -35,16 +35,16 @@ public class MoveWithCam {
 				// Do the opposite if it's seen on the left side.
 				
 				/**if (robot.ball_pos[0] > width + 100) {
-					robot.move(new double[] {-.4,.4,1});
+					robot.move(new double[] {-.4,.4});
 				} else if (robot.ball_pos[0] < width - 100) {
-					robot.move(new double[] {.4,-.4,1});
+					robot.move(new double[] {.4,-.4});
 				} 
 				else {
 					System.out.println("Cetered!!");
 					// System.out.println("Pa lante como el elefante...");
-					robot.move(new double[] {.7,.7,1});
+					robot.move(new double[] {.7,.7});
 				}**/
-				robot.moveTo(robot.ball_pos, true);
+				robot.moveTo(robot.ball_pos);
 				robot.servo.setPosition(Math.PI/6);
 				robot.servo.setPosition(Math.PI*.4);
 				
