@@ -144,7 +144,7 @@ public class Robot {
 		pic = ImageUtil.scaleImage(pic, 320, 240);
 		
 		// Create the ImageTutorial object, and all that that implies
-		Image2 it = new Image2(pic);
+		/**Image2 it = new Image2(pic);
 		// Do the work
 		//it.find_red_blob();
 		it.find_objects(color);
@@ -163,12 +163,13 @@ public class Robot {
 		//if (it.isWall()){
 			//wall_pos = it.pos;
 		//}
-		
+		**/
 		ImageChannel ic = new ImageChannel("Pato Cam");
-		ic.publish(it.im);
+		//ic.publish(it.im);
+		ic.publish(pic);
 		
-		isBall = it.isBall();
-		isGoal = it.isGoal();
+		//isBall = it.isBall();
+		//isGoal = it.isGoal();
 		//isWall = it.isWall();
 	}
 	
