@@ -281,7 +281,18 @@ public class Robot {
 					Thread.sleep(80);
 					break;
 				}
-			}servo.setPosition(Math.PI/6);
+			}
+			//Servo
+			for (int i = 0; i < 5000; i++){
+				moveServo(-Math.PI/8);
+				System.out.println("Abajo!");
+			}for (int i = 0; i < 5000; i++){
+				moveServo(Math.PI*.75);
+				System.out.println("Abajo!");
+			}for (int i = 0; i < 5000; i++){
+				moveServo(Math.PI*.4);
+				System.out.println("Arriba!");
+			}moveServo(1000);
 		}
 	}
 }

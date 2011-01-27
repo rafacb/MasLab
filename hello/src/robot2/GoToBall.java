@@ -33,13 +33,6 @@ public class GoToBall {
 					robot.move(new double[] {.7,.7,1});
 				}**/
 				robot.moveTo(robot.ball_pos);
-				for (int i = 0; i < 5000; i++){
-					robot.moveServo(-Math.PI/8);
-					System.out.println("Abajo!");
-				}for (int i = 0; i < 5000; i++){
-					robot.moveServo(Math.PI*.75);
-					System.out.println("Abajo!");
-				}robot.moveServo(1000);
 			}
 		}
 		
