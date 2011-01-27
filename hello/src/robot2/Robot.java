@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import maslab.camera.Camera;
+import maslab.camera.ImageUtil;
 import maslab.telemetry.channel.ImageChannel;
 import maslab.telemetry.channel.TextChannel;
 import orc.Gyro;
@@ -109,6 +110,41 @@ public class Robot {
 		// Create the ImageTutorial object, and all that that implies
 		Image2 it = null; //WTF initialize to null to placate the compiler
 		it = new Image2(pic);
+		// Do the work
+		//it.find_red_blob();
+		it.find_objects(color);
+		it.renderStatistics(color);
+		height = it.height;
+		width = it.width;
+		
+		
+		
+		//System.out.println("x = "+ it.pos[0] + " y = "+it.pos[1]);
+		//Store position.
+		ball_pos = it.pos;
+		goal_pos[0] = it.x_goal;
+		goal_pos[1] = it.y_goal;
+		
+		//if (it.isWall()){
+			//wall_pos = it.pos;
+		//}
+		
+		ImageChannel ic = new ImageChannel("Pato Cam");
+		ic.publish(it.im);
+		
+		isBall = it.isBall();
+		isGoal = it.isGoal();
+		//isWall = it.isWall();
+	}
+	
+	
+	public void image2(){
+		BufferedImage pic = cam.capture(true);
+		
+		pic = ImageUtil.scaleImage(pic, 320, 240);
+		
+		// Create the ImageTutorial object, and all that that implies
+		Image2 it = new Image2(pic);
 		// Do the work
 		//it.find_red_blob();
 		it.find_objects(color);
