@@ -132,6 +132,8 @@ public class Robot {
 		ImageChannel ic = new ImageChannel("Pato Cam");
 		ic.publish(it.im);
 		
+		System.out.println("goal? "+it.isGoal());
+		
 		isBall = it.isBall();
 		isGoal = it.isGoal();
 		isWall = it.isWall();
@@ -158,17 +160,17 @@ public class Robot {
 		goal_pos[0] = it.x_goal;
 		goal_pos[1] = it.y_goal;
 		
-		//if (it.isWall()){
-			//wall_pos = it.pos;
-		//}
+		if (it.isWall()){
+			wall_pos = it.pos;
+		}
 		
 		ImageChannel ic = new ImageChannel("Pato Cam");
 		ic.publish(it.im);
 		//ic.publish(pic);
 		Thread.sleep(120);
 		isBall = it.isBall();
-		//isGoal = it.isGoal();
-		//isWall = it.isWall();
+		isGoal = it.isGoal();
+		isWall = it.isWall();
 	}
 	
 	public void turn(boolean right){
