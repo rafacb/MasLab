@@ -248,19 +248,19 @@ public class Robot {
 	
 	public void moveTo(int[] pos) throws InterruptedException{
 		double irs[] = input();
-		if (pos[0] > width/2 + 100) {
+		if (pos[0] > width/2 + 50) {
 			canal.publish("Bola a la derecha!");
 			if (irs[0] > .3){
-				move(new double[] {-.5,.45});
+				move(new double[] {-.4,.35});
 			}else{
-				move(new double[] {.5,-.45});
+				move(new double[] {.4,-.35});
 			}//servo.setPosition(Math.PI*.4);
-		} else if (pos[0] < width/2 - 100) {
+		} else if (pos[0] < width/2 - 500) {
 			canal.publish("Bola a la izquierda!");
 			if (irs[1] > .3){
-				move(new double[] {.5,-.45});
+				move(new double[] {.4,-.35});
 			}else{
-				move(new double[] {-.5,.45});
+				move(new double[] {-.4,.45});
 			}//servo.setPosition(Math.PI*.4);
 		} 
 		else {
@@ -268,11 +268,11 @@ public class Robot {
 			// System.out.println("Pa lante como el elefante...");
 			while(isBall){
 				if (irs[2] > .3){
-					move(new double[] {.5,.45});
+					move(new double[] {.4,.35});
 					//servo.setPosition(Math.PI*.4);
 					image2();
 				}else{
-					move(new double[] {.5,-.45});
+					move(new double[] {.4,-.35});
 					break;
 				}
 			}servo.setPosition(Math.PI/6);
