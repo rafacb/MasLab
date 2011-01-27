@@ -27,6 +27,7 @@ public class Robot {
 	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 0);
 	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 7);
 	IRRangeFinder irFront = IRRangeFinder.makeGP2D12(orco, 2);
+	IRRangeFinder irRear = IRRangeFinder.makeGP2D12(orco, 6);
 	AnalogInput rearBump = new AnalogInput(orco, 3);
 	
 	
@@ -99,10 +100,11 @@ public class Robot {
 	 * 
 	 */
 	public double[] input(){
-		double[] irs = new double[3];
+		double[] irs = new double[4];
 		irs[0] = irRight.getRange();
 		irs[1] = irLeft.getRange();
 		irs[2] = irFront.getRange();
+		irs[3] = irRear.getRange();
 		return irs;
 	}
 	

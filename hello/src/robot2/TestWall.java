@@ -19,7 +19,7 @@ public class TestWall {
 				    robot.move(new double[] {speed,-speed});
 				}
 				Thread.sleep(80);
-				while (robot.rearBump.getVoltage() > .2){
+				while (robot.input()[3] > .1){
 					robot.move(new double[] {-.7, -.7});
 				}
 				//Servo shit!
