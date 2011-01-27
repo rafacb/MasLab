@@ -250,7 +250,7 @@ public class Robot {
 		}
 	}
 	
-	public void moveTo(int[] pos, boolean ball){
+	public void moveTo(int[] pos, boolean ball) throws InterruptedException{
 		double irs[] = input();
 		if (pos[0] > width/2 + 100) {
 			if (irs[0] < .3){
@@ -271,7 +271,7 @@ public class Robot {
 			while(isBall){
 				move(new double[] {.5,.45});
 				//servo.setPosition(Math.PI*.4);
-				image();
+				image2();
 			}servo.setPosition(Math.PI/6);
 		}
 	}

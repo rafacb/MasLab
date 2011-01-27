@@ -212,8 +212,9 @@ public class Image2 {
 					g.setColor(Color.black);
 					g.drawLine(x, y, x, y);
 				}else{
-					g.setColor(Color.pink);
-					g.drawLine(x,y,x,y);
+					//Let it be its true color.
+					//g.setColor(Color.pink);
+					//g.drawLine(x,y,x,y);
 				}
 			}
 		}

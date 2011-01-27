@@ -26,7 +26,7 @@ public class MoveWithCam {
 		long maxDurationInMilliseconds =3*60*1000;
 		while (System.currentTimeMillis()<startTime+maxDurationInMilliseconds){
 			
-			robot.image();
+			robot.image2();
 			if (robot.isBall) {
 				robot.canal.publish("Veo Bola!!\n");
 				//int width = robot.width / 2;
