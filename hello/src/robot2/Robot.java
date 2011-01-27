@@ -246,6 +246,10 @@ public class Robot {
 		}
 	}
 	
+	public boolean IsCentered(int pos[], int w){
+		return ((w - 50) < pos[0]) && ((w+50) > pos[0]);
+	}
+	
 	public void moveTo(int[] pos) throws InterruptedException{
 		double irs[] = input();
 		if (pos[0] > width/2 + 50) {

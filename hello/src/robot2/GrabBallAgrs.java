@@ -27,16 +27,16 @@ public class GrabBallAgrs {
 
 						if (robot.ball_pos[0] > width + 50) {
 							robot.move(new double[] {-.3,.25});
-							Thread.sleep(80);
+							Thread.sleep(100);
 						} else if (robot.ball_pos[0] < width - 50) {
 							robot.move(new double[] {.3,-.25});
-							Thread.sleep(80);
+							Thread.sleep(100);
 						} 
-						else {
+						else if (robot.IsCentered(robot.ball_pos, width)){
 							System.out.println("Cetered!!");
 							// System.out.println("Pa lante como el elefante...");
 							robot.move(new double[] {Double.valueOf(args[0]),Double.valueOf(args[1])});
-							Thread.sleep(80);
+							Thread.sleep(100);
 						}robot.image2();
 					}
 					if (sawBall){
