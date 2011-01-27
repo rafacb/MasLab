@@ -1,6 +1,7 @@
 package robot2;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 import maslab.camera.Camera;
 import maslab.telemetry.channel.ImageChannel;
@@ -22,6 +23,7 @@ public class Robot {
 	//Analog input
 	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 0);
 	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 7);
+	IRRangeFinder irFront = IRRangeFinder.makeGP2D12(orco, 2);
 	
 	
 	//Motors
@@ -90,9 +92,10 @@ public class Robot {
 	 * 
 	 */
 	public double[] input(){
-		double[] irs = new double[2];
+		double[] irs = new double[3];
 		irs[0] = irRight.getRange();
 		irs[1] = irLeft.getRange();
+		irs[2] = irFront.getRange();
 		return irs;
 	}
 	
@@ -148,12 +151,18 @@ public class Robot {
 		//System.out.println("irsD = "+irs[0]);
 		//System.out.println("irsIzq = "+irs[1]);
 		//Alante
-		if ((irs[0] >= .3 && irs[1] >= .3) 
+		if (irs[2] < .3){
+			if (new Random().nextInt(1) == 1){
+				
+			}else{
+				
+			}
+		}else if ((irs[0] >= .3 && irs[1] >= .3) 
 				|| (irs[0] == 0.0 && irs[1] == 0.0)
 				|| (irs[0] == 0.0 && irs[1] > .3)
 				|| (irs[0] > .3 && irs [1] == 0.0)){
-			speeds[0] = 0.6;
-			speeds[1] = 0.4;
+			speeds[0] = 0.7;
+			speeds[1] = 0.65;
 			//System.out.println("Pa lante");
 			//servo.setPosition(Math.PI*.4);
 			
@@ -162,8 +171,8 @@ public class Robot {
 		//Atras
 		else if ((irs[0] < .3 && irs[1] < .3) 
 				&& (irs[0] != 0) && (irs[1] != 0)){
-			speeds[0] = -0.6;
-			speeds[1] = -0.4;
+			speeds[0] = -0.7;
+			speeds[1] = -0.65;
 			//System.out.println("Back down!");
 			//servo.setPosition(Math.PI*.4);
 			
@@ -172,8 +181,8 @@ public class Robot {
 		//Derecha
 		else if ((irs[1] < .3 && irs[1] != 0.0) 
 				&& (irs[0] == 0 || irs[0] > .3)){
-			speeds[0] = -0.6;
-			speeds[1] = 0.4;
+			speeds[0] = -0.7;
+			speeds[1] = 0.65;
 			//System.out.println("Pa la izq");
 			//servo.setPosition(Math.PI*.4);
 			
@@ -182,8 +191,8 @@ public class Robot {
 		//Izq
 		else if ((irs[0] < .3 && irs[0] != 0.0) 
 				&& (irs[1] == 0 || irs[1] > .3)){
-			speeds[0] = 0.6;
-			speeds[1] = -0.4;
+			speeds[0] = 0.7;
+			speeds[1] = -0.65;
 			//System.out.println("Pa la derecha");
 			//servo.setPosition(Math.PI*.4);
 			
@@ -195,22 +204,22 @@ public class Robot {
 		double irs[] = input();
 		if (pos[0] > width/2 + 100) {
 			if (irs[0] < .3){
-				move(new double[] {.4,.3});
+				move(new double[] {.7,.65});
 			}else{
-				move(new double[] {-.4,.4});
+				move(new double[] {-.7,.65});
 			}//servo.setPosition(Math.PI*.4);
 		} else if (pos[0] < width/2 - 100) {
 			if (irs[0] < .3){
-				move(new double[] {.3,.4});
+				move(new double[] {.7,.65});
 			}else{
-				move(new double[] {.4,-.4});
+				move(new double[] {.7,-.65});
 			}//servo.setPosition(Math.PI*.4);
 		} 
 		else {
 			System.out.println("Cetered!!");
 			// System.out.println("Pa lante como el elefante...");
 			while(isBall){
-				move(new double[] {.3,.3});
+				move(new double[] {.7,.65});
 				//servo.setPosition(Math.PI*.4);
 				image();
 			}servo.setPosition(Math.PI/6);
