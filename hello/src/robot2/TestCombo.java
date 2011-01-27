@@ -88,6 +88,7 @@ public class TestCombo {
 		Robot robot = new Robot("red");
 		
 		while (true){
+			System.out.println(robot.rearBump.getVoltage());
 			if (robot.rearBump.getVoltage() > .2){
 				Thread.sleep(100);
 			}else{
