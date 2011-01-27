@@ -27,14 +27,17 @@ public class GrabBall {
 
 					if (robot.ball_pos[0] > width + 50) {
 						robot.move(new double[] {-.3,.25});
+						Thread.sleep(80);
 					} else if (robot.ball_pos[0] < width - 50) {
 						robot.move(new double[] {.3,-.25});
+						Thread.sleep(80);
 					} 
 					else {
 						System.out.println("Cetered!!");
 						// System.out.println("Pa lante como el elefante...");
 						robot.move(new double[] {.7,.65});
-					}
+						Thread.sleep(80);
+					}robot.image2();
 				}
 				if (sawBall){
 					Thread.sleep(80);
