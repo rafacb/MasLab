@@ -14,14 +14,12 @@ public class CenterBall {
 			if (robot.isBall){
 				int[] pos = robot.ball_pos;
 				if (pos[0] > width + 50) {
-					robot.move(new double[] {-Double.valueOf(args[0]),Double.valueOf(args[1])});
-					robot.move(new double[] {1000,0});
-					Thread.sleep(100);
-				} else if (pos[0] < width - 50) {
 					robot.move(new double[] {Double.valueOf(args[0]),-Double.valueOf(args[1])});
-					robot.move(new double[] {1000,0});
-					Thread.sleep(100);
-				} 			
+				} else if (pos[0] < width - 50) {
+					robot.move(new double[] {-Double.valueOf(args[0]),Double.valueOf(args[1])});
+				}
+				robot.move(new double[] {1000,0});
+				Thread.sleep(100);
 			}
 		}
 		
