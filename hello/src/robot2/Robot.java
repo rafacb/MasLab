@@ -7,6 +7,7 @@ import maslab.camera.Camera;
 import maslab.camera.ImageUtil;
 import maslab.telemetry.channel.ImageChannel;
 import maslab.telemetry.channel.TextChannel;
+import orc.AnalogInput;
 import orc.Gyro;
 import orc.IRRangeFinder;
 import orc.Motor;
@@ -26,6 +27,7 @@ public class Robot {
 	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 0);
 	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 7);
 	IRRangeFinder irFront = IRRangeFinder.makeGP2D12(orco, 2);
+	AnalogInput rearBump = new AnalogInput(orco, 5);
 	
 	
 	//Motors

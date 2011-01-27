@@ -12,10 +12,13 @@ public class GyroTest {
 	public static void main(String[] args) throws IOException, InterruptedException{
 			
 			Robot robot = new Robot("red");
-			robot.gyro.calibrate(1);
-			robot.gyro.reset();
-			System.out.println(robot.gyro.getTheta());
-			double gyro = 0;
+			
+			System.out.println(robot.rearBump.getVoltage());
+			
+			while (robot.rearBump.getVoltage() < 2.5){
+				Thread.sleep(100);
+			}
+			System.out.println("aquiii");
 			
 			/**
 			while (gyro < .35  && gyro > -.35){
