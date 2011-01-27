@@ -250,6 +250,18 @@ public class Robot {
 		return ((w - 50) < pos[0]) && ((w+50) > pos[0]);
 	}
 	
+	
+	public void center(int pos[], int width) throws InterruptedException{
+		if (pos[0] > width + 50) {
+			move(new double[] {-.4,.35});
+			Thread.sleep(100);
+		} else if (ball_pos[0] < width - 50) {
+			move(new double[] {.4,-.35});
+			Thread.sleep(100);
+		} 
+	}
+	
+	
 	public void moveTo(int[] pos) throws InterruptedException{
 		double irs[] = input();
 		if (pos[0] > width/2 + 50) {
