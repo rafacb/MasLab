@@ -138,13 +138,13 @@ public class Robot {
 	}
 	
 	
-	public void image2(){
+	public void image2() throws InterruptedException{
 		BufferedImage pic = cam.capture(true);
 		
-		pic = ImageUtil.scaleImage(pic, 320, 240);
+		pic = ImageUtil.scaleImage(pic, 160, 120);
 		
 		// Create the ImageTutorial object, and all that that implies
-		/**Image2 it = new Image2(pic);
+		Image2 it = new Image2(pic);
 		// Do the work
 		//it.find_red_blob();
 		it.find_objects(color);
@@ -163,11 +163,11 @@ public class Robot {
 		//if (it.isWall()){
 			//wall_pos = it.pos;
 		//}
-		**/
+		
 		ImageChannel ic = new ImageChannel("Pato Cam");
 		//ic.publish(it.im);
 		ic.publish(pic);
-		
+		Thread.sleep(120);
 		//isBall = it.isBall();
 		//isGoal = it.isGoal();
 		//isWall = it.isWall();
