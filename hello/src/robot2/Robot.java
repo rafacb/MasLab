@@ -26,7 +26,7 @@ public class Robot {
 	
 	//Motors
 	static Motor motorR = new Motor(orco, 2, true);
-	static Motor motorL = new Motor(orco, 1, true);
+	static Motor motorL = new Motor(orco, 1, false);
 	static Servo servo = Servo.makeMPIMX400(orco, 0);
 	
 	//Gyro

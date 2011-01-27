@@ -17,15 +17,20 @@ public class GyroTest {
 			System.out.println(robot.gyro.getTheta());
 			double gyro = 0;
 			
-			
-			while (gyro < .368  && gyro > -.368){
+			/**
+			while (gyro < .35  && gyro > -.35){
 				
-				robot.move(new double[] {.2,.4});
+				robot.move(new double[] {.5,.3});
 				gyro = robot.gyro.getTheta();
 				System.out.println("gyro = "+gyro);
 				//robot.move(new double [] {1000,100});
 			}System.out.println("No te muevas!");
-			//robot.move(new double [] {1000,100});
+			//robot.move(new double [] {1000,100});**/
+			
+			for (int i=0; i<2510;i++){
+			    robot.move(new double[] {.5,-.4});
+			}
+
 			
 	}
 
