@@ -253,13 +253,13 @@ public class Robot {
 	public void moveTo(int[] pos, boolean ball) throws InterruptedException{
 		double irs[] = input();
 		if (pos[0] > width/2 + 100) {
-			if (irs[0] < .3){
+			if (irs[0] > .3){
 				move(new double[] {.5,.45});
 			}else{
 				move(new double[] {-.5,.45});
 			}//servo.setPosition(Math.PI*.4);
 		} else if (pos[0] < width/2 - 100) {
-			if (irs[0] < .3){
+			if (irs[1] > .3){
 				move(new double[] {.5,.45});
 			}else{
 				move(new double[] {.5,-.45});
@@ -269,9 +269,14 @@ public class Robot {
 			System.out.println("Cetered!!");
 			// System.out.println("Pa lante como el elefante...");
 			while(isBall){
-				move(new double[] {.5,.45});
-				//servo.setPosition(Math.PI*.4);
-				image2();
+				if (irs[2] > .3){
+					move(new double[] {.5,.45});
+					//servo.setPosition(Math.PI*.4);
+					image2();
+				}else{
+					move(new double[] {.5,-.45});
+					break;
+				}
 			}servo.setPosition(Math.PI/6);
 		}
 	}
