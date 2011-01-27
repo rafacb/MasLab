@@ -117,6 +117,7 @@ public class TestCombo {
 					robot.move(new double[] {.7,.7});
 				}**/
 				grabBall(robot);
+				System.out.println("Tengo BOLAS!");
 				robot.hasBall = true;
 				
 			} else if (robot.hasBall){
