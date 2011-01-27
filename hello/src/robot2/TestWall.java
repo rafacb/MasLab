@@ -14,7 +14,7 @@ public class TestWall {
 	    	if (robot.isWall){
 				while (robot.input()[2] > .2){
 					robot.move(new double[] {.5,.5});
-				}for (int i=0; i<1750;i++){
+				}for (int i=0; i<2050;i++){
 				    robot.move(new double[] {.5,-.5});
 				}
 				Thread.sleep(80);
