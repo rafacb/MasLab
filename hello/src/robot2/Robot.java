@@ -27,7 +27,7 @@ public class Robot {
 	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 0);
 	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 7);
 	IRRangeFinder irFront = IRRangeFinder.makeGP2D12(orco, 2);
-	AnalogInput rearBump = new AnalogInput(orco, 5);
+	AnalogInput rearBump = new AnalogInput(orco, 3);
 	
 	
 	//Motors

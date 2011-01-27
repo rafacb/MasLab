@@ -13,9 +13,9 @@ public class GyroTest {
 			
 			Robot robot = new Robot("red");
 			
-			System.out.println(robot.rearBump.getVoltage());
+			while(true){
 			
-			while (robot.rearBump.getVoltage() < 2.5){
+			while (robot.rearBump.getVoltage() > .1){
 				Thread.sleep(100);
 			}
 			System.out.println("aquiii");
@@ -30,8 +30,9 @@ public class GyroTest {
 			}System.out.println("No te muevas!");
 			//robot.move(new double [] {1000,100});**/
 			
-			for (int i=0; i<2510;i++){
-			    robot.move(new double[] {.5,-.4});
+			for (int i=0; i<Integer.valueOf(args[2]);i++){
+			    robot.move(new double[] {Double.valueOf(args[0]),Double.valueOf(args[1])});
+			}
 			}
 
 			
