@@ -145,8 +145,8 @@ public class Robot {
 		Image2 it = new Image2(pic);
 		// Do the work
 		//it.find_red_blob();
-		it.find_objects(color);
-		it.renderStatistics(color);
+		it.find_objects2(color);
+		it.renderStatistics2(color);
 		height = it.height;
 		width = it.width;
 		

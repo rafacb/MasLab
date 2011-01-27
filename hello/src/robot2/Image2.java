@@ -211,11 +211,11 @@ public class Image2 {
 				}else if (isBlack(im.getRGB(x, y))){
 					g.setColor(Color.black);
 					g.drawLine(x, y, x, y);
-				}else{
+				}//else{
 					//Let it be its true color.
 					//g.setColor(Color.pink);
 					//g.drawLine(x,y,x,y);
-				}
+				//}
 			}
 		}
 		//now for the bounding box
@@ -634,8 +634,9 @@ public class Image2 {
 					g.setColor(Color.black);
 					g.drawLine(x, y, x, y);
 				}else{
-					g.setColor(Color.pink);
-					g.drawLine(x,y,x,y);
+					//Let the colors flow.
+					//g.setColor(Color.pink);
+					//g.drawLine(x,y,x,y);
 				}
 			}
 		}
