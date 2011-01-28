@@ -22,20 +22,20 @@ public class TestCombo {
 				// Do the opposite if it's seen on the left side.
 
 				if (robot.ball_pos[0] > width + 55) {
-					robot.move(new double[] {.3,.35});
+					robot.move(new double[] {.35,.4});
 					Thread.sleep(80);
 				} else if (robot.ball_pos[0] < width - 55) {
-					robot.move(new double[] {.35,.3});
+					robot.move(new double[] {.4,.35});
 					Thread.sleep(80);
-				} 
-				else {
+				}else {
 					System.out.println("Cetered!!");
 					// System.out.println("Pa lante como el elefante...");
 					for (int i =0; i<1000; i++){
-					    robot.move(new double[] {.8,.75});
+					    robot.move(new double[] {.8,.8});
 					}
 					Thread.sleep(80);
-				}robot.image2();
+				}
+				robot.image2();
 				Thread.sleep(80);
 			}
 			if (sawBall && !robot.isBall){
@@ -44,7 +44,7 @@ public class TestCombo {
 				for (int i = 0; i < 1500; i++){
 					robot.moveServo(-Math.PI);
 					System.out.println("Abajo!");
-				}for (int i = 0; i < 500; i++){
+				}for (int i = 0; i < 200; i++){
 					robot.moveServo(Math.PI*.4);
 					System.out.println("Normal!");
 				}robot.moveServo(1000);	

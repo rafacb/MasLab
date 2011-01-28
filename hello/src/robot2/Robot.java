@@ -1,8 +1,6 @@
 package robot2;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Random;
-
 import maslab.camera.Camera;
 import maslab.camera.ImageUtil;
 import maslab.telemetry.channel.ImageChannel;
@@ -214,8 +212,8 @@ public class Robot {
 				|| (irs[0] == 0.0 && irs[1] > .35)
 				|| (irs[0] > .35 && irs [1] == 0.0)){
 			canal.publish("Random-Alante!");
-			speeds[0] = 0.5;
-			speeds[1] = 0.5;
+			speeds[0] = 0.6;
+			speeds[1] = 0.6;
 			//System.out.println("Pa lante");
 			//servo.setPosition(Math.PI*.4);
 			
@@ -225,8 +223,8 @@ public class Robot {
 		else if ((irs[0] < .35 && irs[1] < .35) 
 				&& (irs[0] != 0) && (irs[1] != 0)){
 			canal.publish("Random-Para atras!");
-			speeds[0] = -0.5;
-			speeds[1] = -0.5;
+			speeds[0] = -0.6;
+			speeds[1] = -0.6;
 			//System.out.println("Back down!");
 			//servo.setPosition(Math.PI*.4);
 			
@@ -236,8 +234,8 @@ public class Robot {
 		else if ((irs[1] < .35 && irs[1] != 0.0) 
 				&& (irs[0] == 0 || irs[0] > .35)){
 			canal.publish("Random-Izquierda!");
-			speeds[0] = -0.5;
-			speeds[1] = 0.5;
+			speeds[0] = -0.6;
+			speeds[1] = 0.6;
 			//System.out.println("Pa la izq");
 			//servo.setPosition(Math.PI*.4);
 			
@@ -247,8 +245,8 @@ public class Robot {
 		else if ((irs[0] < .35 && irs[0] != 0.0) 
 				&& (irs[1] == 0 || irs[1] > .35)){
 			canal.publish("Random-Derecha!");
-			speeds[0] = 0.5;
-			speeds[1] = -0.5;
+			speeds[0] = 0.6;
+			speeds[1] = -0.6;
 			//System.out.println("Pa la derecha");
 			//servo.setPosition(Math.PI*.4);
 			
