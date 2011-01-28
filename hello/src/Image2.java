@@ -657,7 +657,9 @@ public class Image2 {
 			}
 		}else{
 			goal = isYellow(im.getRGB(x_goal, y_goal));
-		}return goal && black_area < 50;
+		}
+		System.out.println("black wall = "+black_area);
+		return goal && black_area < 50;
 	}
 	
 	/**
