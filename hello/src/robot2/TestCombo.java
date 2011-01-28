@@ -55,7 +55,7 @@ public class TestCombo {
 	
 	public static void wall(Robot robot) throws InterruptedException{
 		if (robot.isWall){
-			while (robot.input()[2] > .2){
+			while (robot.input()[2] > .2 && robot.input()[2] != 0.0){
 				robot.move(new double[] {.5,.5});
 			}for (int i=0; i<1950;i++){
 			    double speed = .65;
