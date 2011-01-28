@@ -24,7 +24,6 @@ public class MueveteNuevo {
 		Robot robot = new Robot(args[0]);
 		long startTime = System.currentTimeMillis();
 		long maxDurationInMilliseconds =3*60*1000;
-		int width = robot.width / 2;
 		
 		hold(robot);
 		
@@ -39,6 +38,7 @@ public class MueveteNuevo {
 			// if (count%20 == 0){
 			
 			robot.image();
+			int width = robot.width / 2;
 			if (robot.isBall) {
 				canal.publish("Veo Bola!!\n");
 				
@@ -48,18 +48,18 @@ public class MueveteNuevo {
 				//System.out.println("pos = "+robot.ball_pos[0] + " w = "+(width-100)+" w = "+(width+100));
 				
 				if (robot.ball_pos[0] > width + 80) {
-					System.out.println("Veo bola a la derecha, mueve izq");
-					System.out.println("pos = "+robot.ball_pos[0]+" w = "+width);
+					//System.out.println("Veo bola a la derecha, mueve izq");
+					//System.out.println("pos = "+robot.ball_pos[0]+" w = "+width);
 					//robot.turn(true);
 					//for (int i = 0; i < 10; i++){
-						robot.move(new double[] {.7,.9,1});
+						robot.move(new double[] {.7,.8,1});
 						Thread.sleep(80);
 					//}
 				} else if (robot.ball_pos[0] < width - 80) {
-					System.out.println("Veo bola a la izq, mueve derecha");
+					//System.out.println("Veo bola a la izq, mueve derecha");
 					//robot.turn(false);
 					//for (int i = 0; i < 10; i++){
-						robot.move(new double[] {.9,.7,1});
+						robot.move(new double[] {.8,.7,1});
 						Thread.sleep(80);
 					//}
 				} 
@@ -88,6 +88,7 @@ public class MueveteNuevo {
 		}while(System.currentTimeMillis()<startTime+maxDurationInMilliseconds){
 			canal.publish("Veo Goal!!\n");
 			robot.image();
+			int width = robot.width / 2;
 			boolean sawGoal = false;
 			while (robot.isGoal){
 				sawGoal = true;
