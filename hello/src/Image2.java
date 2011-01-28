@@ -85,10 +85,10 @@ public class Image2 {
 	private static final int BLACK_HUE_MAX = 256; 
 	private static final int BLACK_HUE_MIN = 0; 
 	
-	private static final int BLACK_SAT_MAX = 0;
+	private static final int BLACK_SAT_MAX = 10;
 	private static final int BLACK_SAT_MIN = 0;
 		
-	private static final int BLACK_VAL_MAX = 0; 
+	private static final int BLACK_VAL_MAX = 10; 
 	private static final int BLACK_VAL_MIN = 0; 
 	
 	// Member variables
