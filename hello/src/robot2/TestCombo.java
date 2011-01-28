@@ -41,7 +41,7 @@ public class TestCombo {
 			if (sawBall && !robot.isBall){
 				Thread.sleep(80);
 				//After you can't see it, you have it so move the servo
-				for (int i = 0; i < 1500; i++){
+				for (int i = 0; i < 500; i++){
 					robot.moveServo(-Math.PI);
 					System.out.println("Abajo!");
 				}for (int i = 0; i < 200; i++){
