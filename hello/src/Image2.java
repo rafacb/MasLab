@@ -590,9 +590,11 @@ public class Image2 {
 					!isYellow(im.getRGB(x_goal, y_goal+1)) && !isYellow(im.getRGB(x_goal-1, y_goal-1)) &&
 					!isYellow(im.getRGB(x_goal-1, y_goal+1)) && !isYellow(im.getRGB(x_goal+1, y_goal+1)) &&
 					!isYellow(im.getRGB(x_goal+1, y_goal+1))){
+				System.out.println("todo es not yello!!");
 				goal = true;
 			}
 		}else{
+			System.out.println("out of bounds");
 			goal = !isYellow(im.getRGB(x_goal, y_goal));
 		}return ((yellow_area > black_area +1000) && goal);
 	}
