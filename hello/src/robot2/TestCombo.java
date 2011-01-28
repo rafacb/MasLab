@@ -41,10 +41,10 @@ public class TestCombo {
 			if (sawBall && !robot.isBall){
 				Thread.sleep(80);
 				//After you can't see it, you have it so move the servo
-				for (int i = 0; i < 500; i++){
-					robot.moveServo(-Math.PI/8);
+				for (int i = 0; i < 1500; i++){
+					robot.moveServo(-Math.PI);
 					System.out.println("Abajo!");
-				}for (int i = 0; i < 100; i++){
+				}for (int i = 0; i < 500; i++){
 					robot.moveServo(Math.PI*.4);
 					System.out.println("Normal!");
 				}robot.moveServo(1000);	
@@ -63,7 +63,7 @@ public class TestCombo {
 			}
 			Thread.sleep(80);
 			robot.move(new double[] {1000,0});
-			while ((robot.input()[3] > .16 || robot.input()[3] != 0.0) && robot.rearBump.getVoltage() > .2){
+			while ((robot.input()[3] > .17 || robot.input()[3] != 0.0) && robot.rearBump.getVoltage() > .2){
 			    System.out.println(robot.input()[3]);
 			    robot.move(new double[] {-.7, -.7});
 			}System.out.println(robot.input()[3]);

@@ -194,21 +194,15 @@ public class Robot {
 		//System.out.println("irsD = "+irs[0]);
 		//System.out.println("irsIzq = "+irs[1]);
 		//Alante
-		if ((irs[2] < .3 && irs[2] != 0.0) && (irs[2] < irs[1]) && (irs[2] < irs[0])){
+		if ((irs[2] < .35 && irs[2] != 0.0) && (irs[2] < irs[1]) && (irs[2] < irs[0])){
 			canal.publish("Random-Muy Cerca de Frente");
-			if (new Random().nextInt(1) == 1){
 			    speeds[0] = -0.5;
-			    speeds[1] = -0.7;
+			    speeds[1] = -0.8;
 			    move(speeds);
-			}else{
-			    speeds[0] = -0.7;
-			    speeds[1] = -0.5;
-			    move(speeds);
-			}
-		}else if ((irs[0] >= .3 && irs[1] >= .3) 
+		}else if ((irs[0] >= .35 && irs[1] >= .35) 
 				|| (irs[0] == 0.0 && irs[1] == 0.0)
-				|| (irs[0] == 0.0 && irs[1] > .3)
-				|| (irs[0] > .3 && irs [1] == 0.0)){
+				|| (irs[0] == 0.0 && irs[1] > .35)
+				|| (irs[0] > .35 && irs [1] == 0.0)){
 			canal.publish("Random-Alante!");
 			speeds[0] = 0.5;
 			speeds[1] = 0.45;
@@ -218,7 +212,7 @@ public class Robot {
 			move(speeds);
 		}
 		//Atras
-		else if ((irs[0] < .3 && irs[1] < .3) 
+		else if ((irs[0] < .35 && irs[1] < .35) 
 				&& (irs[0] != 0) && (irs[1] != 0)){
 			canal.publish("Random-Para atras!");
 			speeds[0] = -0.5;
@@ -229,8 +223,8 @@ public class Robot {
 			move(speeds);
 		}
 		//Derecha
-		else if ((irs[1] < .3 && irs[1] != 0.0) 
-				&& (irs[0] == 0 || irs[0] > .3)){
+		else if ((irs[1] < .35 && irs[1] != 0.0) 
+				&& (irs[0] == 0 || irs[0] > .35)){
 			canal.publish("Random-Izquierda!");
 			speeds[0] = -0.5;
 			speeds[1] = 0.45;
@@ -240,8 +234,8 @@ public class Robot {
 			move(speeds);
 		}
 		//Izq
-		else if ((irs[0] < .3 && irs[0] != 0.0) 
-				&& (irs[1] == 0 || irs[1] > .3)){
+		else if ((irs[0] < .35 && irs[0] != 0.0) 
+				&& (irs[1] == 0 || irs[1] > .35)){
 			canal.publish("Random-Derecha!");
 			speeds[0] = 0.5;
 			speeds[1] = -0.45;
