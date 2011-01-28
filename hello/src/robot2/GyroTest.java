@@ -15,9 +15,9 @@ public class GyroTest {
 			
 			while(true){
 			
-			while (robot.rearBump.getVoltage() > .1){
-				Thread.sleep(100);
-			}
+			//while (robot.rearBump.getVoltage() > .1){
+				//Thread.sleep(100);
+			//}
 			System.out.println("aquiii");
 			
 			/**

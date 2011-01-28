@@ -59,9 +59,10 @@ public class TestCombo {
 				robot.image2();
 				if (!robot.isWall){
 					return null;
+				}else{
+					robot.move(new double[] {.5,.5});
 				}
-				robot.move(new double[] {.5,.5});
-			}for (int i=0; i<1950;i++){
+			}for (int i=0; i<500;i++){
 			    double speed = .65;
 			    robot.move(new double[] {speed,-speed});
 			}
@@ -72,13 +73,13 @@ public class TestCombo {
 			    robot.move(new double[] {-.5, -.5});
 			}System.out.println(robot.input()[3]);
 			//Servo shit!
-			for (int i = 0; i < 4000; i++){
+			for (int i = 0; i < 3000; i++){
 				robot.moveServo(Math.PI*.75);
 				
-			}for (int i = 0; i < 1000; i++){
+			}for (int i = 0; i < 500; i++){
 				robot.moveServo(Math.PI*.4);
 			       
-			}for (int i = 0; i < 1000; i++){
+			}for (int i = 0; i < 500; i++){
 			    robot.moveServo(1000);
 			}
 		}robot.image2();
