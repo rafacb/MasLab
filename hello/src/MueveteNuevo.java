@@ -49,6 +49,7 @@ public class MueveteNuevo {
 				
 				if (robot.ball_pos[0] > width + 80) {
 					System.out.println("Veo bola a la derecha, mueve izq");
+					System.out.println("pos = "+robot.ball_pos[0]+" w = "+width);
 					//robot.turn(true);
 					//for (int i = 0; i < 10; i++){
 						robot.move(new double[] {.7,.9,1});
