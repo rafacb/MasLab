@@ -591,9 +591,9 @@ public class Image2 {
 					!isYellow(im.getRGB(x_goal-1, y_goal+1)) && !isYellow(im.getRGB(x_goal+1, y_goal+1)) &&
 					!isYellow(im.getRGB(x_goal+1, y_goal+1))){
 				goal = true;
+			}
 		}else{
 			goal = !isYellow(im.getRGB(x_goal, y_goal));
-		}
 		}return ((yellow_area > black_area +1000) && goal);
 	}
 	
