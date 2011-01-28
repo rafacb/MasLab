@@ -158,7 +158,14 @@ public class Robot {
 		
 		//System.out.println("x = "+ it.pos[0] + " y = "+it.pos[1]);
 		//Store position.
-		ball_pos = it.pos;
+		if (it.area > 300){
+			ball_pos[0] = it.pos[0];
+			ball_pos[1] = it.pos[1];
+		}else if (it.green_area > 300){
+			ball_pos[0] = it.pos[2];
+			ball_pos[1] = it.pos[3];
+		}
+		
 		goal_pos[0] = it.x_goal;
 		goal_pos[1] = it.y_goal;
 		
