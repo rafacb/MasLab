@@ -97,7 +97,7 @@ public class TestCombo {
 		
 		Robot robot = new Robot("red");
 		
-		//hold(robot);
+		hold(robot);
 		
 		long startTime = System.currentTimeMillis();
 		long maxDurationInMilliseconds =3*60*1000;
