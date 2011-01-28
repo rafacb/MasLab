@@ -57,14 +57,14 @@ public class Image2 {
 	private static final int RED_VAL_MAX = 256; 
 	private static final int RED_VAL_MIN = 104; 
 	
-	private static final int WHITE_HUE_MAX = 0; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
-	private static final int WHITE_HUE_MIN = 256; // Because hue wraps around at red
+	private static final int WHITE_HUE_MAX = 256; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
+	private static final int WHITE_HUE_MIN = 0; // Because hue wraps around at red
 												// 220 = -35 (mod 256)
-	private static final int WHITE_SAT_MAX = 0;
+	private static final int WHITE_SAT_MAX = 5;
 	private static final int WHITE_SAT_MIN = 0;
 		
 	private static final int WHITE_VAL_MAX = 256; 
-	private static final int WHITE_VAL_MIN = 256; 
+	private static final int WHITE_VAL_MIN = 250; 
 	
 	private static final int YELLOW_HUE_MAX = 70; 
 	private static final int YELLOW_HUE_MIN = 35; 
@@ -218,11 +218,11 @@ public class Image2 {
 				}else if (isGreen(im.getRGB(x, y))){
 					g.setColor(Color.green);
 					g.drawLine(x, y, x, y);
-				}else if (isWhite(im.getRGB(x, y))){
-					g.setColor(Color.white);
-					g.drawLine(x, y, x, y);
 				}else if (isBlack(im.getRGB(x, y))){
 					g.setColor(Color.black);
+					g.drawLine(x, y, x, y);
+				}else if (isWhite(im.getRGB(x, y))){
+					g.setColor(Color.white);
 					g.drawLine(x, y, x, y);
 				}//else{
 					//Let it be its true color.
@@ -532,8 +532,6 @@ public class Image2 {
 					y_goal_max = (y > y_goal_max) ? y : y_goal_max;
 				}else if (isBlue(pixel)){
 					blue_area++;
-				}else if (isWhite(pixel)){
-					white_area++;
 				}else if (isBlack(pixel)){
 					goal_area++;
 					black_area++;
@@ -562,6 +560,8 @@ public class Image2 {
 
 					xgreen_max = (x > xgreen_max) ? x : xgreen_max; // a ? b : c <==> if a then b else c
 					ygreen_max = (y > ygreen_max) ? y : ygreen_max;
+				}else if (isWhite(pixel)){
+					white_area++;
 				}
 			}
 		}
@@ -772,14 +772,15 @@ public class Image2 {
 	public static void main(String[] args) throws IOException {
 		// Create the ImageTutorial object, and all that that implies
 		Image2 it = null; //WTF initialize to null to placate the compiler
-		for (int i =10; i < 18; i++){
-			it = new Image2("hello/capture"+i+".jpg");
+		//for (int i =10; i < 18; i++){
+			//it = new Image2("hello/capture"+i+".jpg");
+		it = new Image2("hello/homer.jpg");
 		// Do the work
 		//it.find_green_blob();
 		it.findBoundaries();
 		it.find_objects2("red");
 		//it.find_goal();
-		System.out.println("pic "+i+"goal??? "+it.isGoal()+" wall??? "+it.isWall());
+		//System.out.println("pic "+i+"goal??? "+it.isGoal()+" wall??? "+it.isWall());
 		//System.out.println(it.isBall());
 		//System.out.println("total = "+it.goal_area);
 		//System.out.println("black = "+it.black_area);
@@ -788,9 +789,6 @@ public class Image2 {
 		//it.renderStatistics("green");
 		System.out.println("important stuff = "+it.importantStuff);
 		it.renderStatistics2("red");
-		//try {
-			//it.writeImage("capture17result.jpg");
-		//}
-	}
+		it.writeImage("hello/homer_result.jpg");
 	}
 }
