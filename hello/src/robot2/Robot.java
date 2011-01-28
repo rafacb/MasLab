@@ -197,12 +197,12 @@ public class Robot {
 		if (irs[2] < .3 && irs[2] != 0.0){
 			canal.publish("Random-Muy Cerca de Frente");
 			if (new Random().nextInt(1) == 1){
-			    speeds[0] = 0.5;
-			    speeds[1] = -0.45;
+			    speeds[0] = -0.5;
+			    speeds[1] = -0.6;
 			    move(speeds);
 			}else{
-			    speeds[0] = -0.5;
-			    speeds[1] = 0.45;
+			    speeds[0] = -0.6;
+			    speeds[1] = -0.5;
 			    move(speeds);
 			}
 		}else if ((irs[0] >= .3 && irs[1] >= .3) 
