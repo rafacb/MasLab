@@ -87,19 +87,21 @@ public class MueveteNuevo {
 		}while(System.currentTimeMillis()<startTime+maxDurationInMilliseconds){
 			canal.publish("Veo Goal!!\n");
 			robot.image();
+			boolean sawGoal = false;
 			while (robot.isGoal){
+				sawGoal = true;
 				if (robot.goal_pos[0] > width + 100) {
 					//System.out.println("Veo bola a la derecha, mueve izq");
 					//robot.turn(true);
 					//for (int i = 0; i < 10; i++){
-						robot.move(new double[] {.4,.5,1});
+						robot.move(new double[] {.4,.6,1});
 						Thread.sleep(80);
 					//}
 				} else if (robot.goal_pos[0] < width - 100) {
 					//System.out.println("Veo bola a la izq, mueve derecha");
 					//robot.turn(false);
 					//for (int i = 0; i < 10; i++){
-						robot.move(new double[] {.5,.4,1});
+						robot.move(new double[] {.6,.4,1});
 						Thread.sleep(80);
 					//}
 				}else{
@@ -109,9 +111,13 @@ public class MueveteNuevo {
 					}break;
 				}robot.image();
 			}
-			canal.publish("No Veo Nada!! Random Walk!!\n");
-			System.out.println("No veo!!");
-			robot.randomWalk();
+			if (sawGoal){
+				break;
+			}else{
+				canal.publish("No Veo Nada!! Random Walk!!\n");
+				System.out.println("No veo!!");
+				robot.randomWalk();
+			}
 		}
 	}
 
