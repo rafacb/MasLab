@@ -631,7 +631,7 @@ public class Image2 {
 	}
 	
 	public boolean isWall(){
-		return yellow_area > 1000 && black_area < 20;
+		return yellow_area > 1000 && black_area < 50;
 	}
 	
 	/**
