@@ -47,14 +47,14 @@ public class MueveteNuevo {
 				// Do the opposite if it's seen on the left side.
 				//System.out.println("pos = "+robot.ball_pos[0] + " w = "+(width-100)+" w = "+(width+100));
 				
-				if (robot.ball_pos[0] > width + 100) {
+				if (robot.ball_pos[0] > width + 80) {
 					//System.out.println("Veo bola a la derecha, mueve izq");
 					//robot.turn(true);
 					//for (int i = 0; i < 10; i++){
-						robot.move(new double[] {.9,.7,1});
+						robot.move(new double[] {.7,.9,1});
 						Thread.sleep(80);
 					//}
-				} else if (robot.ball_pos[0] < width - 100) {
+				} else if (robot.ball_pos[0] < width - 80) {
 					//System.out.println("Veo bola a la izq, mueve derecha");
 					//robot.turn(false);
 					//for (int i = 0; i < 10; i++){
