@@ -66,9 +66,10 @@ public class Robot {
 	 * 
 	 */
 	public double[] input(){
-		double[] irs = new double[2];
+		double[] irs = new double[3];
 		irs[0] = irRight.getRange();
 		irs[1] = irLeft.getRange();
+		irs[2] = irFront.getRange();
 		return irs;
 	}
 	
