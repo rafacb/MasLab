@@ -503,7 +503,7 @@ public class Image2 {
 
 					x_goal_max = (x > x_goal_max) ? x : x_goal_max; // a ? b : c <==> if a then b else c
 					y_goal_max = (y > y_goal_max) ? y : y_goal_max;
-				}else if (color == "red" && isRed(pixel)){
+				}else if (color.equals("red") && isRed(pixel)){
 					area++;
 					x_position += x;
 					y_position += y;
@@ -512,7 +512,7 @@ public class Image2 {
 
 					x_max = (x > x_max) ? x : x_max; // a ? b : c <==> if a then b else c
 					y_max = (y > y_max) ? y : y_max;
-				}else if (color == "green" && isGreen(pixel)){
+				}else if (color.equals("green") && isGreen(pixel)){
 					area++;
 					x_position += x;
 					y_position += y;
