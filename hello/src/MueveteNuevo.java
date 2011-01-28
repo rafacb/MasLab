@@ -21,7 +21,7 @@ public class MueveteNuevo {
 
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
-		Robot robot = new Robot("green");
+		Robot robot = new Robot(args[0]);
 		long startTime = System.currentTimeMillis();
 		long maxDurationInMilliseconds =3*60*1000;
 		int width = robot.width / 2;
