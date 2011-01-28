@@ -156,6 +156,8 @@ public class Robot {
 		height = it.height;
 		width = it.width;
 		
+		System.out.println("white = "+it.white_area);
+		
 		//System.out.println("x = "+ it.pos[0] + " y = "+it.pos[1]);
 		//Store position.
 		if (it.area > 300){
