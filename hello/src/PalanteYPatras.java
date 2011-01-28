@@ -5,7 +5,7 @@ public class PalanteYPatras {
 
 	public static void main(String[] args) throws IOException,
 	InterruptedException {
-		Robot robot = new Robot();
+		Robot robot = new Robot(args[0]);
 		long startTime = System.currentTimeMillis();
 		long maxDurationInMilliseconds =3*60*1000;
 		while (System.currentTimeMillis()<startTime+maxDurationInMilliseconds){

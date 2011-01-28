@@ -19,7 +19,7 @@ public class Robot {
 	//Analog input
 	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 7);
 	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 0);
-	IRRangeFinder irFront = IRRangeFinder.makeGP2D12(orco, 2);
+	IRRangeFinder irFront = IRRangeFinder.makeGP2D12(orco, 3);
 	
 	
 	//Motors
@@ -40,17 +40,21 @@ public class Robot {
 	boolean isBall;
 	boolean isGoal;
 	
+	//Color
+	String color;
+	
 	
 	/**
 	 * Constructor of a robot.
 	 * Initiates the motors and gives them speed.
 	 * @throws IOException 
 	 */
-	public Robot() throws IOException{
+	public Robot(String color) throws IOException{
 		motors[0] = motorR;
 		motors[1] = motorL;
 		motors[2] = drib;
 		cam = Camera.makeCamera();
+		this.color = color;
 	}
 	
 	/**
@@ -81,8 +85,9 @@ public class Robot {
 		it = new Image2(pic);
 		// Do the work
 		//it.find_red_blob();
-		it.find_objects("red");
-		it.renderStatistics("red");
+		it.findBoundaries();
+		it.find_objects2(color);
+		it.renderStatistics2(color);
 		height = it.height;
 		width = it.width;
 		
@@ -124,7 +129,7 @@ public class Robot {
 		//Alante
 		System.out.println("derecha = "+irs[0]);
 		System.out.println("izq = "+irs[1]);
-		System.out.println("frente = "+irs[2]);/**
+		System.out.println("frente = "+irs[2]);
 		if (irs[2] < .2 && irs[2] < irs[1] && irs[2] < irs[0] && irs[2] != 0.0){
 			move(new double[] {-.7,-.5, 1});
 		}else if ((irs[0] >= .3 && irs[1] >= .3) 
@@ -167,7 +172,7 @@ public class Robot {
 			//System.out.println("Pa la derecha");
 			
 			move(speeds);
-		}**/
+		}
 		/**if (irs[0] > .3 || irs[0] == 0.0){
 			speeds[0] = 0.5;
 			speeds[1] = 0.5;

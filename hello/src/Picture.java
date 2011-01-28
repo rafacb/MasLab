@@ -73,7 +73,7 @@ class Picture {
         return dst;
     }
     public static void main(String[] args) throws Exception {
-    	Robot robot = new Robot();
+    	Robot robot = new Robot(args[0]);
         BufferedImage oimg = robot.cam.capture(true);
         //BufferedImage img = maslab.camera.ImageUtil.convertImage(oimg, BufferedImage.TYPE_INT_RGB);
         BufferedImage img = new BufferedImage(oimg.getWidth(), oimg.getHeight(), BufferedImage.TYPE_INT_RGB);

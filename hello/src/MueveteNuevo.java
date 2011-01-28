@@ -21,11 +21,13 @@ public class MueveteNuevo {
 
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
-		Robot robot = new Robot();
-		int count = 0;
+		Robot robot = new Robot("green");
 		long startTime = System.currentTimeMillis();
 		long maxDurationInMilliseconds =3*60*1000;
 		int width = robot.width / 2;
+		
+		hold(robot);
+		
 		while (System.currentTimeMillis()<startTime+maxDurationInMilliseconds-40000){
 			/**
 			 * System.out.println(robot.input()); if (robot.input() > 1.8 ||
@@ -89,14 +91,14 @@ public class MueveteNuevo {
 					//System.out.println("Veo bola a la derecha, mueve izq");
 					//robot.turn(true);
 					//for (int i = 0; i < 10; i++){
-						robot.move(new double[] {-.4,.4,1});
+						robot.move(new double[] {.4,.5,1});
 						Thread.sleep(80);
 					//}
 				} else if (robot.goal_pos[0] < width - 100) {
 					//System.out.println("Veo bola a la izq, mueve derecha");
 					//robot.turn(false);
 					//for (int i = 0; i < 10; i++){
-						robot.move(new double[] {.4,-.4,1});
+						robot.move(new double[] {.5,.4,1});
 						Thread.sleep(80);
 					//}
 				}else{

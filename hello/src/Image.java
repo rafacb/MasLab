@@ -344,7 +344,7 @@ public class Image {
 		int width = x_max-x_min;
 		int height = y_max-y_min;
 		double avg = (width+height)/2;
-		//System.out.println("w = "+width+" height = "+height+" avg = "+avg);
+		System.out.println("w = "+width+" height = "+height+" avg = "+avg);
 		return 0;
 	}
 	
