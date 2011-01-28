@@ -1,4 +1,6 @@
-// Import the necessary libraries
+
+
+//Import the necessary libraries
 import javax.imageio.*;
 
 import maslab.camera.ImageUtil;
@@ -53,7 +55,16 @@ public class Image2 {
 	private static final int RED_SAT_MIN = 100;
 		
 	private static final int RED_VAL_MAX = 256; 
-	private static final int RED_VAL_MIN = 104;  
+	private static final int RED_VAL_MIN = 104; 
+	
+	private static final int WHITE_HUE_MAX = 256; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
+	private static final int WHITE_HUE_MIN = 0; // Because hue wraps around at red
+												// 220 = -35 (mod 256)
+	private static final int WHITE_SAT_MAX = 5;
+	private static final int WHITE_SAT_MIN = 0;
+		
+	private static final int WHITE_VAL_MAX = 256; 
+	private static final int WHITE_VAL_MIN = 250; 
 	
 	private static final int YELLOW_HUE_MAX = 70; 
 	private static final int YELLOW_HUE_MIN = 30; 
@@ -61,7 +72,7 @@ public class Image2 {
 	private static final int YELLOW_SAT_MAX = 256;
 	private static final int YELLOW_SAT_MIN = 100;
 		
-	private static final int YELLOW_VAL_MAX = 256; 
+	private static final int YELLOW_VAL_MAX = 255; 
 	private static final int YELLOW_VAL_MIN = 104;  
 	
 	private static final int BLUE_HUE_MAX = 185; 
@@ -85,10 +96,10 @@ public class Image2 {
 	private static final int BLACK_HUE_MAX = 256; 
 	private static final int BLACK_HUE_MIN = 0; 
 	
-	private static final int BLACK_SAT_MAX = 10;
+	private static final int BLACK_SAT_MAX = 0;
 	private static final int BLACK_SAT_MIN = 0;
 		
-	private static final int BLACK_VAL_MAX = 10; 
+	private static final int BLACK_VAL_MAX = 0; 
 	private static final int BLACK_VAL_MIN = 0; 
 	
 	// Member variables
@@ -98,17 +109,18 @@ public class Image2 {
 	public int width, height;
 	private int importantStuff = 0;
 	// red blob statistics //#*$@ Are there better things to
-	private int area = 0; // which to initialize these? Yes.
-	private int x_position = 0, y_position = 0; // Do I care right now? No.
+	public int area = 0, green_area = 0; // which to initialize these? Yes.
+	private int x_green = 0, y_green = 0, x_position = 0, y_position = 0; // Do I care right now? No.
 	private int x_min = 0, x_max = 0, y_min = 0, y_max = 0;
+	private int xgreen_min = 0, xgreen_max = 0, ygreen_min = 0, ygreen_max = 0;
 	
 	//goal variables
-	private int goal_area = 0, black_area = 0, yellow_area = 0, blue_area = 0; // which to initialize these? Yes.
+	public int goal_area = 0, black_area = 0, yellow_area = 0, blue_area = 0, white_area = 0; // which to initialize these? Yes.
 	public int x_goal = 0, y_goal = 0; // Do I care right now? No.
 	private int x_goal_min = 0, x_goal_max = 0, y_goal_min = 0, y_goal_max = 0;
 	
 	//Position of ball
-	public int[] pos = new int[2];
+	public int[] pos = new int[4];
 
 	//
 	// Member functions
@@ -168,6 +180,8 @@ public class Image2 {
 				System.out.println("blueCount = "+blueCount);
 				importantStuff = y-1;
 				break;
+			}else{
+				blueCount = 0;
 			}
 			for(int x = 0; x < width; x++) {
 				int pixel = im.getRGB(x,y);
@@ -207,27 +221,38 @@ public class Image2 {
 				}else if (isBlack(im.getRGB(x, y))){
 					g.setColor(Color.black);
 					g.drawLine(x, y, x, y);
-				}else{
-					g.setColor(Color.pink);
-					g.drawLine(x,y,x,y);
-				}
+				}else if (isWhite(im.getRGB(x, y))){
+					g.setColor(Color.white);
+					g.drawLine(x, y, x, y);
+				}//else{
+					//Let it be its true color.
+					//g.setColor(Color.pink);
+					//g.drawLine(x,y,x,y);
+				//}
 			}
 		}
 		//now for the bounding box
 		g.setColor(Color.pink);
 		g.drawRect(x_min, y_min, x_max-x_min, y_max-y_min);
+		g.drawRect(xgreen_min, ygreen_min, xgreen_max-xgreen_min, ygreen_max-ygreen_min);
 		//WTF Note that drawRect() takes x, y, width, height;
 		//now for the center-of-mass
-		if (color.equals("red")){
-			g.setColor(Color.green);
-		}else{
-			g.setColor(Color.red);
-		}
 		
+		//For red balls
+		g.setColor(Color.green);
+	
 		g.drawLine(x_position-10, y_position-10,
 				x_position+10, y_position+10);
 		g.drawLine(x_position-10, y_position+10,
 				x_position+10, y_position-10);
+		
+		//For green balls
+		g.setColor(Color.red);
+		
+		g.drawLine(x_green-10, y_green-10,
+				x_green+10, y_green+10);
+		g.drawLine(x_green-10, y_green+10,
+				x_green+10, y_green-10);
 		
 		//Draw the X on the goal
 		if (isGoal()){
@@ -239,7 +264,9 @@ public class Image2 {
 		
 		pos[0] = x_position;
 		pos[1] = y_position;
-		
+
+		pos[2] = x_green;
+		pos[3] = y_green;
 	}
 	
 	
@@ -256,6 +283,14 @@ public class Image2 {
 		return (RED_HUE_MIN <= hue || hue <= RED_HUE_MAX) &&
 		(RED_SAT_MIN <= sat && sat <= RED_SAT_MAX) &&
 		(RED_VAL_MIN <= val && val <= RED_VAL_MAX);
+	}
+	public static boolean isWhite(int hsv) {
+		int val = hsv & 0xFF; 
+		int sat = (hsv >> 8) & 0xFF;
+		int hue = (hsv >> 16) & 0xFF;
+		return (WHITE_HUE_MIN <= hue && hue <= WHITE_HUE_MAX) &&
+		(WHITE_SAT_MIN <= sat && sat <= WHITE_SAT_MAX) &&
+		(WHITE_VAL_MIN <= val && val <= WHITE_VAL_MAX);
 	}
 	/**
 	 * Determines if the given hsv color is yellow
@@ -470,13 +505,17 @@ public class Image2 {
 		x_goal_min = y_goal_min = Integer.MAX_VALUE;
 		// initialize statistics
 		area = 0;
+		green_area = 0;
 		x_position = y_position = 0;
+		x_green = y_green = 0;
 		x_min = y_min = Integer.MAX_VALUE;
+		xgreen_min = ygreen_min = Integer.MAX_VALUE;
 		//WTF Why MAX_VALUE? So that it will always
 		// update on the first pixel. We could also
 		// have used width and height.
 		x_goal_max = y_goal_max = 0;
 		x_max = y_max = 0;
+		xgreen_max = ygreen_max = 0;
 		// scan through every pixel in the image
 		for(int y = importantStuff; y < height; y++) {
 			for(int x = 0; x < width; x++) {
@@ -503,7 +542,7 @@ public class Image2 {
 
 					x_goal_max = (x > x_goal_max) ? x : x_goal_max; // a ? b : c <==> if a then b else c
 					y_goal_max = (y > y_goal_max) ? y : y_goal_max;
-				}else if (color.equals("red") && isRed(pixel)){
+				}else if (isRed(pixel)){
 					area++;
 					x_position += x;
 					y_position += y;
@@ -512,15 +551,17 @@ public class Image2 {
 
 					x_max = (x > x_max) ? x : x_max; // a ? b : c <==> if a then b else c
 					y_max = (y > y_max) ? y : y_max;
-				}else if (color.equals("green") && isGreen(pixel)){
-					area++;
-					x_position += x;
-					y_position += y;
-					x_min = (x < x_min) ? x : x_min; //IMHO Yay for the conditional operator
-					y_min = (y < y_min) ? y : y_min; //WTF Conditional operator?
+				}else if (isGreen(pixel)){
+					green_area++;
+					x_green += x;
+					y_green += y;
+					xgreen_min = (x < xgreen_min) ? x : xgreen_min; //IMHO Yay for the conditional operator
+					ygreen_min = (y < ygreen_min) ? y : ygreen_min; //WTF Conditional operator?
 
-					x_max = (x > x_max) ? x : x_max; // a ? b : c <==> if a then b else c
-					y_max = (y > y_max) ? y : y_max;
+					xgreen_max = (x > xgreen_max) ? x : xgreen_max; // a ? b : c <==> if a then b else c
+					ygreen_max = (y > ygreen_max) ? y : ygreen_max;
+				}else if (isWhite(pixel)){
+					white_area++;
 				}
 			}
 		}
@@ -533,6 +574,10 @@ public class Image2 {
 		if(area != 0) { //there may not have been any red
 			x_position /= area;
 			y_position /= area;
+		}
+		if (green_area != 0){
+			x_green /= green_area;
+			y_green /= green_area;
 		}
 	}
 	
@@ -574,7 +619,7 @@ public class Image2 {
 	 * @return
 	 */
 	public boolean isBall(){
-		return area > 300;
+		return area > 300 || green_area > 300;
 	}
 	
 	/**
@@ -590,17 +635,15 @@ public class Image2 {
 					!isYellow(im.getRGB(x_goal, y_goal+1)) && !isYellow(im.getRGB(x_goal-1, y_goal-1)) &&
 					!isYellow(im.getRGB(x_goal-1, y_goal+1)) && !isYellow(im.getRGB(x_goal+1, y_goal+1)) &&
 					!isYellow(im.getRGB(x_goal+1, y_goal+1))){
-				System.out.println("todo es not yello!!");
 				goal = true;
 			}
 		}else{
-			System.out.println("out of bounds");
 			goal = !isYellow(im.getRGB(x_goal, y_goal));
-		}return ((yellow_area > black_area +1000) && black_area > 500 && goal);
+		}return ((yellow_area > black_area +1000) && goal);
 	}
 	
 	public boolean isWall(){
-		return (yellow_area > 1000 && !isGoal());
+		return yellow_area > 1000 && !isGoal();
 	}
 	
 	/**
@@ -642,9 +685,13 @@ public class Image2 {
 				}else if (isBlack(im.getRGB(x, y))){
 					g.setColor(Color.black);
 					g.drawLine(x, y, x, y);
+				}else if (isWhite(im.getRGB(x, y))){
+					g.setColor(Color.white);
+					g.drawLine(x, y, x, y);
 				}else{
-					g.setColor(Color.pink);
-					g.drawLine(x,y,x,y);
+					//Let the colors flow.
+					//g.setColor(Color.pink);
+					//g.drawLine(x,y,x,y);
 				}
 			}
 		}
@@ -732,45 +779,28 @@ public class Image2 {
 	
 	/**
 	 * Demonstrates the functions of ImageTutorial
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// Create the ImageTutorial object, and all that that implies
 		Image2 it = null; //WTF initialize to null to placate the compiler
-		try {
-			//it = new Image("hello/capture9.png");
-			it = new Image2("hello/capture13.jpg");
-		}
-		catch(IOException ioe) {
-			System.out.println("Failed to create ImageTutorial object.");
-			ioe.printStackTrace();
-			System.exit(1);
-		}
+		//for (int i =10; i < 18; i++){
+			//it = new Image2("hello/capture"+i+".jpg");
+		it = new Image2("hello/homer.jpg");
 		// Do the work
 		//it.find_green_blob();
 		it.findBoundaries();
 		it.find_objects2("red");
 		//it.find_goal();
-		System.out.println("goal??? "+it.isGoal()+" wall??? "+it.isWall());
+		//System.out.println("pic "+i+"goal??? "+it.isGoal()+" wall??? "+it.isWall());
 		//System.out.println(it.isBall());
-		System.out.println("total = "+it.goal_area);
-		System.out.println("black = "+it.black_area);
-		System.out.println("yellow = "+it.yellow_area);
+		//System.out.println("total = "+it.goal_area);
+		//System.out.println("black = "+it.black_area);
+		//System.out.println("yellow = "+it.yellow_area);
 		// Show the work
 		//it.renderStatistics("green");
 		System.out.println("important stuff = "+it.importantStuff);
 		it.renderStatistics2("red");
-		// Print the statistics
-		//System.out.println(it.statisticsToString());
-		//System.out.println(it.checkDammValues());
-		// Write the image back to disk
-		try {
-			//it.writeImage("capture9result.png");
-			it.writeImage("capture13result.jpg");
-		}
-		catch(IOException ioe) {
-			System.out.println("Failed to write the image to disk");
-			ioe.printStackTrace();
-			System.exit(1);
-		}
+		it.writeImage("hello/homer_result.jpg");
 	}
 }

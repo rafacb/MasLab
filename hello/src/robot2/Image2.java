@@ -67,7 +67,7 @@ public class Image2 {
 	private static final int WHITE_VAL_MIN = 250; 
 	
 	private static final int YELLOW_HUE_MAX = 70; 
-	private static final int YELLOW_HUE_MIN = 35; 
+	private static final int YELLOW_HUE_MIN = 30; 
 	
 	private static final int YELLOW_SAT_MAX = 256;
 	private static final int YELLOW_SAT_MIN = 100;
