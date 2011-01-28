@@ -80,10 +80,7 @@ public class TestCombo {
 		}robot.image2();
 	}
 	
-	public static void main(String[] args) throws IOException, InterruptedException{
-		
-		Robot robot = new Robot("red");
-		
+	public static void hold(Robot robot) throws InterruptedException{
 		while (true){
 			System.out.println(robot.rearBump.getVoltage());
 			if (robot.rearBump.getVoltage() > .2){
@@ -93,6 +90,13 @@ public class TestCombo {
 				break;
 			}
 		}
+	}
+	
+	public static void main(String[] args) throws IOException, InterruptedException{
+		
+		Robot robot = new Robot("red");
+		
+		hold(robot);
 		
 		long startTime = System.currentTimeMillis();
 		long maxDurationInMilliseconds =3*60*1000;

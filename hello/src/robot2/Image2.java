@@ -609,7 +609,7 @@ public class Image2 {
 	}
 	
 	public boolean isWall(){
-		return yellow_area > 100 && !isGoal();
+		return yellow_area > 100 && !isGoal() && blue_area < 100;
 	}
 	
 	/**
