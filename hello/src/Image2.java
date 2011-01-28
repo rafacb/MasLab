@@ -641,11 +641,23 @@ public class Image2 {
 			goal = !isYellow(im.getRGB(x_goal, y_goal));
 		}
 		System.out.println("black = "+black_area);
-		return ((yellow_area > black_area +1000) && black_area > 1000 && goal);
+		return ((yellow_area > black_area +1000) && black_area > 0 && goal);
 	}
 	
 	public boolean isWall(){
-		return yellow_area > 1000 && !isGoal();
+		boolean goal = false;
+		//Check some pixels!
+		if ( x_goal >= 1 && y_goal >= 1 && x_goal < width && y_goal < height){
+			if (isYellow(im.getRGB(x_goal, y_goal)) && isYellow(im.getRGB(x_goal+1, y_goal)) &&
+					isYellow(im.getRGB(x_goal-1, y_goal)) && isYellow(im.getRGB(x_goal, y_goal+1)) &&
+					isYellow(im.getRGB(x_goal, y_goal+1)) && isYellow(im.getRGB(x_goal-1, y_goal-1)) &&
+					isYellow(im.getRGB(x_goal-1, y_goal+1)) && isYellow(im.getRGB(x_goal+1, y_goal+1)) &&
+					isYellow(im.getRGB(x_goal+1, y_goal+1))){
+				goal = true;
+			}
+		}else{
+			goal = isYellow(im.getRGB(x_goal, y_goal));
+		}return goal && !isGoal();
 	}
 	
 	/**
@@ -788,11 +800,12 @@ public class Image2 {
 		Image2 it = null; //WTF initialize to null to placate the compiler
 		//for (int i =10; i < 18; i++){
 			//it = new Image2("hello/capture"+i+".jpg");
-		it = new Image2("hello/homer.jpg");
+		it = new Image2("hello/black.jpg");
 		// Do the work
 		//it.find_green_blob();
 		it.findBoundaries();
 		it.find_objects2("red");
+		System.out.println(it.isGoal());
 		//it.find_goal();
 		//System.out.println("pic "+i+"goal??? "+it.isGoal()+" wall??? "+it.isWall());
 		//System.out.println(it.isBall());
@@ -803,6 +816,6 @@ public class Image2 {
 		//it.renderStatistics("green");
 		System.out.println("important stuff = "+it.importantStuff);
 		it.renderStatistics2("red");
-		it.writeImage("hello/homer_result.jpg");
+		it.writeImage("hello/black_result.jpg");
 	}
 }
