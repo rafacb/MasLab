@@ -1,15 +1,29 @@
 import java.io.IOException;
 
+import robot2.Robot;
+
 import maslab.telemetry.channel.TextChannel;
 
 public class MueveteNuevo {
 	// Variables to store speeds of the motors
 	static double[] speeds = new double[2];
 	static TextChannel canal = new TextChannel("The Mighty Patos!");
+	
+	public static void hold(Robot robot) throws InterruptedException{
+		while (true){
+			System.out.println(robot.input()[1]);
+			if (robot.input()[0] > .3 || robot.input()[0] == 0.0){
+				Thread.sleep(100);
+			}else{
+				System.out.println("Start!!");
+				break;
+			}
+		}
+	}
 
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
-		Robot robot = new Robot();
+		Robot robot = new Robot(args[0]);
 		int count = 0;
 		long startTime = System.currentTimeMillis();
 		long maxDurationInMilliseconds =3*60*1000;

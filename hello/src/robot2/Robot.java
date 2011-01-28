@@ -45,13 +45,13 @@ public class Robot {
 	public int width;
 	
 	//Position of Ball and goal
-	int[] ball_pos = new int[2];
-	int[] goal_pos = new int[2];
+	public int[] ball_pos = new int[2];
+	public int[] goal_pos = new int[2];
 	int[] wall_pos = new int[2];
 	
 	//Can you see something good?
-	boolean isBall;
-	boolean isGoal;
+	public boolean isBall;
+	public boolean isGoal;
 	boolean isWall;
 	
 	//Has balls?
