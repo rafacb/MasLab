@@ -198,10 +198,10 @@ public class Robot {
 			canal.publish("Random-Muy Cerca de Frente");
 			if (new Random().nextInt(1) == 1){
 			    speeds[0] = -0.5;
-			    speeds[1] = -0.6;
+			    speeds[1] = -0.7;
 			    move(speeds);
 			}else{
-			    speeds[0] = -0.6;
+			    speeds[0] = -0.7;
 			    speeds[1] = -0.5;
 			    move(speeds);
 			}
