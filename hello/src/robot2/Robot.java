@@ -204,7 +204,7 @@ public class Robot {
 		//System.out.println("irsD = "+irs[0]);
 		//System.out.println("irsIzq = "+irs[1]);
 		//Alante
-		if ((irs[2] < .35 && irs[2] != 0.0) && (irs[2] < irs[1]) && (irs[2] < irs[0])){
+		if ((irs[2] < .4 && irs[2] != 0.0) && (irs[2] < irs[1]) && (irs[2] < irs[0])){
 			canal.publish("Random-Muy Cerca de Frente");
 			    speeds[0] = -0.5;
 			    speeds[1] = -0.8;

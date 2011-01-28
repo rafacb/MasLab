@@ -627,40 +627,11 @@ public class Image2 {
 	 * @return
 	 */
 	public boolean isGoal(){
-		boolean goal = false;
-		//Check some pixels!
-		if ( x_goal >= 1 && y_goal >= 1 && x_goal < width && y_goal < height){
-			if (!isYellow(im.getRGB(x_goal, y_goal)) && !isYellow(im.getRGB(x_goal+1, y_goal)) &&
-					!isYellow(im.getRGB(x_goal-1, y_goal)) && !isYellow(im.getRGB(x_goal, y_goal+1)) &&
-					!isYellow(im.getRGB(x_goal, y_goal+1)) && !isYellow(im.getRGB(x_goal-1, y_goal-1)) &&
-					!isYellow(im.getRGB(x_goal-1, y_goal+1)) && !isYellow(im.getRGB(x_goal+1, y_goal+1)) &&
-					!isYellow(im.getRGB(x_goal+1, y_goal+1))){
-				goal = true;
-			}
-		}else{
-			goal = !isYellow(im.getRGB(x_goal, y_goal));
-		}
-		//System.out.println("black = "+black_area);
-		return (!isWall());
+		return yellow_area > 1000 && !isWall();
 	}
 	
 	public boolean isWall(){
-		boolean goal = false;
-		//Check some pixels!
-		/**if ( x_goal >= 1 && y_goal >= 1 && x_goal < width && y_goal < height){
-			if (isYellow(im.getRGB(x_goal, y_goal)) && isYellow(im.getRGB(x_goal+1, y_goal)) &&
-					isYellow(im.getRGB(x_goal-1, y_goal)) && isYellow(im.getRGB(x_goal, y_goal+1)) &&
-					isYellow(im.getRGB(x_goal, y_goal+1)) && isYellow(im.getRGB(x_goal-1, y_goal-1)) &&
-					isYellow(im.getRGB(x_goal-1, y_goal+1)) && isYellow(im.getRGB(x_goal+1, y_goal+1)) &&
-					isYellow(im.getRGB(x_goal+1, y_goal+1))){
-				goal = true;
-			}
-		}else{
-			goal = isYellow(im.getRGB(x_goal, y_goal));
-		}**/
-		goal = isYellow(im.getRGB(x_goal, y_goal));
-		System.out.println("black wall = "+black_area+" yellow = "+yellow_area);
-		return yellow_area > 1000 && black_area < 50;
+		return yellow_area > 1000 && black_area < 20;
 	}
 	
 	/**
