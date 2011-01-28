@@ -1,7 +1,5 @@
 import java.io.IOException;
 
-import robot2.Robot;
-
 import maslab.telemetry.channel.TextChannel;
 
 public class MueveteNuevo {
@@ -23,7 +21,7 @@ public class MueveteNuevo {
 
 	public static void main(String[] args) throws IOException,
 			InterruptedException {
-		Robot robot = new Robot(args[0]);
+		Robot robot = new Robot();
 		int count = 0;
 		long startTime = System.currentTimeMillis();
 		long maxDurationInMilliseconds =3*60*1000;
