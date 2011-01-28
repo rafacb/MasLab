@@ -56,12 +56,7 @@ public class TestCombo {
 	public static Object wall(Robot robot) throws InterruptedException{
 		if (robot.isWall){
 			while (robot.input()[2] > .2 && robot.input()[2] != 0.0){
-				robot.image2();
-				if (!robot.isWall){
-					return null;
-				}else{
-					robot.move(new double[] {.5,.5});
-				}
+				robot.move(new double[] {.5,.5});
 			}for (int i=0; i<500;i++){
 			    double speed = .65;
 			    robot.move(new double[] {speed,-speed});
