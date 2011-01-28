@@ -52,14 +52,14 @@ public class MueveteNuevo {
 					//System.out.println("pos = "+robot.ball_pos[0]+" w = "+width);
 					//robot.turn(true);
 					//for (int i = 0; i < 10; i++){
-						robot.move(new double[] {.7,.8,1});
+						robot.move(new double[] {.7,.9,1});
 						Thread.sleep(80);
 					//}
 				} else if (robot.ball_pos[0] < width - 80) {
 					//System.out.println("Veo bola a la izq, mueve derecha");
 					//robot.turn(false);
 					//for (int i = 0; i < 10; i++){
-						robot.move(new double[] {.8,.7,1});
+						robot.move(new double[] {.9,.7,1});
 						Thread.sleep(80);
 					//}
 				} 
