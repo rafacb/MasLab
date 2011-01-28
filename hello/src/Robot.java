@@ -122,6 +122,9 @@ public class Robot {
 		//System.out.println("irsD = "+irs[0]);
 		//System.out.println("irsIzq = "+irs[1]);
 		//Alante
+		System.out.println("derecha = "+irs[0]);
+		System.out.println("izq = "+irs[1]);
+		System.out.println("frente = "+irs[2]);/**
 		if (irs[2] < .2 && irs[2] < irs[1] && irs[2] < irs[0] && irs[2] != 0.0){
 			move(new double[] {-.7,-.5, 1});
 		}else if ((irs[0] >= .3 && irs[1] >= .3) 
@@ -164,7 +167,7 @@ public class Robot {
 			//System.out.println("Pa la derecha");
 			
 			move(speeds);
-		}
+		}**/
 		/**if (irs[0] > .3 || irs[0] == 0.0){
 			speeds[0] = 0.5;
 			speeds[1] = 0.5;
