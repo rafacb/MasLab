@@ -19,6 +19,7 @@ public class Robot {
 	//Analog input
 	IRRangeFinder irRight = IRRangeFinder.makeGP2D12(orco, 7);
 	IRRangeFinder irLeft = IRRangeFinder.makeGP2D12(orco, 0);
+	IRRangeFinder irFront = IRRangeFinder.makeGP2D12(orco, 2);
 	
 	
 	//Motors
@@ -120,7 +121,9 @@ public class Robot {
 		//System.out.println("irsD = "+irs[0]);
 		//System.out.println("irsIzq = "+irs[1]);
 		//Alante
-		if ((irs[0] >= .3 && irs[1] >= .3) 
+		if (irs[2] < .2 && irs[2] < irs[1] && irs[2] < irs[0] && irs[2] != 0.0){
+			move(new double[] {-.7,-.5, 1});
+		}else if ((irs[0] >= .3 && irs[1] >= .3) 
 				|| (irs[0] == 0.0 && irs[1] == 0.0)
 				|| (irs[0] == 0.0 && irs[1] > .3)
 				|| (irs[0] > .3 && irs [1] == 0.0)){
