@@ -39,6 +39,7 @@ public class Robot {
 	//Can you see something good?
 	boolean isBall;
 	boolean isGoal;
+	boolean isWall;
 	
 	//Color
 	String color;
@@ -104,6 +105,7 @@ public class Robot {
 		
 		isBall = it.isBall();
 		isGoal = it.isGoal();
+		isWall = it.isWall();
 	}
 	
 	public void turn(boolean right){

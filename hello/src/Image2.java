@@ -49,20 +49,20 @@ public class Image2 {
 	private static final int RED_HUE_MAX = 7; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
 	private static final int RED_HUE_MIN = 220; // Because hue wraps around at red
 												// 220 = -35 (mod 256)
-	private static final int RED_SAT_MAX = 250;
-	private static final int RED_SAT_MIN = 77;
+	private static final int RED_SAT_MAX = 256;
+	private static final int RED_SAT_MIN = 100;
 		
-	private static final int RED_VAL_MAX = 250; 
-	private static final int RED_VAL_MIN = 64;  
+	private static final int RED_VAL_MAX = 256; 
+	private static final int RED_VAL_MIN = 104;  
 	
 	private static final int YELLOW_HUE_MAX = 70; 
 	private static final int YELLOW_HUE_MIN = 30; 
 	
-	private static final int YELLOW_SAT_MAX = 220;
-	private static final int YELLOW_SAT_MIN = 50;
+	private static final int YELLOW_SAT_MAX = 256;
+	private static final int YELLOW_SAT_MIN = 100;
 		
-	private static final int YELLOW_VAL_MAX = 240; 
-	private static final int YELLOW_VAL_MIN = 0;  
+	private static final int YELLOW_VAL_MAX = 256; 
+	private static final int YELLOW_VAL_MIN = 104;  
 	
 	private static final int BLUE_HUE_MAX = 185; 
 	private static final int BLUE_HUE_MIN = 150;
@@ -582,11 +582,19 @@ public class Image2 {
 	 * @return
 	 */
 	public boolean isGoal(){
-		return ((yellow_area > black_area +1000) && !isYellow(im.getRGB(x_goal, y_goal)));
+		boolean goal = false;
+		//Check some pixels!
+		if (!isYellow(im.getRGB(x_goal, y_goal)) && !isYellow(im.getRGB(x_goal+1, y_goal)) &&
+				!isYellow(im.getRGB(x_goal-1, y_goal)) && !isYellow(im.getRGB(x_goal, y_goal+1)) &&
+				!isYellow(im.getRGB(x_goal, y_goal+1)) && !isYellow(im.getRGB(x_goal-1, y_goal-1)) &&
+				!isYellow(im.getRGB(x_goal-1, y_goal+1)) && !isYellow(im.getRGB(x_goal+1, y_goal+1)) &&
+				!isYellow(im.getRGB(x_goal+1, y_goal+1))){
+			goal = true;
+		}return ((yellow_area > black_area +1000) && goal);
 	}
 	
 	public boolean isWall(){
-		return (yellow_area/blue_area >= .7);
+		return (yellow_area > 1000 && !isGoal());
 	}
 	
 	/**
