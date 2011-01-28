@@ -105,7 +105,7 @@ public class MueveteNuevo {
 					while (robot.input()[2] > .5){
 						System.out.println();
 						robot.move(new double[] {.7,.7,-1});
-					}
+					}break;
 				}
 			}else {
 				canal.publish("No Veo Nada!! Random Walk!!\n");
