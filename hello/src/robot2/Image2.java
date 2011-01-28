@@ -55,7 +55,16 @@ public class Image2 {
 	private static final int RED_SAT_MIN = 100;
 		
 	private static final int RED_VAL_MAX = 256; 
-	private static final int RED_VAL_MIN = 104;  
+	private static final int RED_VAL_MIN = 104; 
+	
+	private static final int WHITE_HUE_MAX = 0; //WTF Why is RED_HUE_MAX < RED_HUE_MIN?
+	private static final int WHITE_HUE_MIN = 256; // Because hue wraps around at red
+												// 220 = -35 (mod 256)
+	private static final int WHITE_SAT_MAX = 0;
+	private static final int WHITE_SAT_MIN = 0;
+		
+	private static final int WHITE_VAL_MAX = 256; 
+	private static final int WHITE_VAL_MIN = 256; 
 	
 	private static final int YELLOW_HUE_MAX = 70; 
 	private static final int YELLOW_HUE_MIN = 35; 
@@ -106,7 +115,7 @@ public class Image2 {
 	private int xgreen_min = 0, xgreen_max = 0, ygreen_min = 0, ygreen_max = 0;
 	
 	//goal variables
-	public int goal_area = 0, black_area = 0, yellow_area = 0, blue_area = 0; // which to initialize these? Yes.
+	public int goal_area = 0, black_area = 0, yellow_area = 0, blue_area = 0, white_area = 0; // which to initialize these? Yes.
 	public int x_goal = 0, y_goal = 0; // Do I care right now? No.
 	private int x_goal_min = 0, x_goal_max = 0, y_goal_min = 0, y_goal_max = 0;
 	
@@ -209,6 +218,9 @@ public class Image2 {
 				}else if (isGreen(im.getRGB(x, y))){
 					g.setColor(Color.green);
 					g.drawLine(x, y, x, y);
+				}else if (isWhite(im.getRGB(x, y))){
+					g.setColor(Color.white);
+					g.drawLine(x, y, x, y);
 				}else if (isBlack(im.getRGB(x, y))){
 					g.setColor(Color.black);
 					g.drawLine(x, y, x, y);
@@ -271,6 +283,14 @@ public class Image2 {
 		return (RED_HUE_MIN <= hue || hue <= RED_HUE_MAX) &&
 		(RED_SAT_MIN <= sat && sat <= RED_SAT_MAX) &&
 		(RED_VAL_MIN <= val && val <= RED_VAL_MAX);
+	}
+	public static boolean isWhite(int hsv) {
+		int val = hsv & 0xFF; 
+		int sat = (hsv >> 8) & 0xFF;
+		int hue = (hsv >> 16) & 0xFF;
+		return (WHITE_HUE_MIN <= hue && hue <= WHITE_HUE_MAX) &&
+		(WHITE_SAT_MIN <= sat && sat <= WHITE_SAT_MAX) &&
+		(WHITE_VAL_MIN <= val && val <= WHITE_VAL_MAX);
 	}
 	/**
 	 * Determines if the given hsv color is yellow
@@ -512,6 +532,8 @@ public class Image2 {
 					y_goal_max = (y > y_goal_max) ? y : y_goal_max;
 				}else if (isBlue(pixel)){
 					blue_area++;
+				}else if (isWhite(pixel)){
+					white_area++;
 				}else if (isBlack(pixel)){
 					goal_area++;
 					black_area++;
@@ -609,7 +631,7 @@ public class Image2 {
 	}
 	
 	public boolean isWall(){
-		return yellow_area > 100 && !isGoal();
+		return yellow_area > 100 && !isGoal() && white_area < 10;
 	}
 	
 	/**
@@ -650,6 +672,9 @@ public class Image2 {
 					g.drawLine(x, y, x, y);
 				}else if (isBlack(im.getRGB(x, y))){
 					g.setColor(Color.black);
+					g.drawLine(x, y, x, y);
+				}else if (isWhite(im.getRGB(x, y))){
+					g.setColor(Color.white);
 					g.drawLine(x, y, x, y);
 				}else{
 					//Let the colors flow.
